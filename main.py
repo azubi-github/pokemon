@@ -1,3 +1,4 @@
+import pygame
 from pokemon import Pokemon
 from pokemonteam import PokemonTeam
 import random
