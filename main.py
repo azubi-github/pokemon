@@ -3,60 +3,67 @@ from pokemonteam import PokemonTeam
 import random
 
 player_team = PokemonTeam()
+player_team_names = []
 enemy_team = PokemonTeam()
-yes_counter = 1
-
-print("Build your Team")
+enemy_team_names = []
 
 player_choosing = True
-
-while player_choosing:
-    pokemon_name = input("Pokemon name: ")
-    with open("C:\\Users\\lukas_langer\\Desktop\\PycharmProjects\\Pokemon\\pokemonlist.txt", "r") as file:
-        pokemon_file = file.readlines()
-
-    for line in pokemon_file:
-        pokemon_list = line.strip().split(",")
-
-        if pokemon_name.lower() == pokemon_list[0]:
-            choice = Pokemon(pokemon_list[0], pokemon_list[1], pokemon_list[2], pokemon_list[3], pokemon_list[4],
-                             pokemon_list[5], pokemon_list[6])
-            player_team.add_pokemon(choice)
-            print(f'{pokemon_name} added to the Team')
-            break
-    another = input("Another Pokemon? (yes/no)").lower().strip()
-
-    if another == "yes":
-        yes_counter += 1
-
-    elif another != "yes":
-        player_choosing = False
 
 with open("C:\\Users\\lukas_langer\\Desktop\\PycharmProjects\\Pokemon\\pokemonlist.txt", "r") as file:
     pokemon_file = file.readlines()
 
-enemy_team_number = yes_counter
+print("Build your Team ")
+
+while player_choosing:
+    pokemon_name = input("Pokemon name: ").strip().capitalize()
+
+    pokemon_found = False
+
+    for line in pokemon_file:
+        pokemon_list = line.strip().split(",")
+
+        if pokemon_name == pokemon_list[0]:
+
+            if pokemon_name in player_team_names:
+                print(f"{pokemon_name} is already in your Team ")
+                break
+
+            else:
+                choice = Pokemon(*pokemon_list)
+                player_team.add_pokemon(choice)
+                player_team_names.append(pokemon_list[0])
+                print(f'{pokemon_name} added to your Team ')
+            pokemon_found = True
+            break
+
+    another = input("Another Pokemon? (yes/no) ").lower().strip()
+
+    if another != "yes":
+        player_choosing = False
+
+enemy_team_number = len(player_team_names)
 random_pokemon = random.sample(pokemon_file, enemy_team_number)
 
 for line in random_pokemon:
     pokemon_list = line.strip().split(",")
-    choice = Pokemon(pokemon_list[0], pokemon_list[1], pokemon_list[2], pokemon_list[3], pokemon_list[4],
-                     pokemon_list[5], pokemon_list[6])
+    choice = Pokemon(*pokemon_list)
     enemy_team.add_pokemon(choice)
+    enemy_team_names.append(pokemon_list[0])
 
-print("Your Team")
-list()
+print(player_team)
 
-ask_fight = input("Start a fight? (yes/no)").strip().lower()
+ask_fight = input("Start a fight? (yes/no) ").strip().lower()
+
 if ask_fight == "yes":
-    print("TO BATTLE!")
+    print("TO BATTLE! ")
     fighting = True
+
 else:
-    print(":(")
+    print("Bye ")
 
 
-
-
+while fighting:
+    pass
 
 
 

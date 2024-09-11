@@ -1,3 +1,6 @@
+from pokemon import Pokemon
+
+
 class PokemonTeam:
     def __init__(self):
         self.team = []
@@ -6,4 +9,4 @@ class PokemonTeam:
         self.team.append(pokemon)
 
     def __repr__(self):
-        return str(self.team)
+        return list(self.team)

@@ -1,4 +1,4 @@
-bulbasaur,grass,200,121,121,85,Vine Whip
-charmander,fire,188,112,94,121,Ember
-squirtle,water,198,94,121,81,Water Gun
-test,test,1000,1000,1000,1000,Hyperbeam
+Bulbasaur,Grass,200,121,121,85,Vine Whip
+Charmander,Fire,188,112,94,121,Ember
+Squirtle,Water,198,94,121,81,Water Gun
+Test,Unknown,1000,1000,1000,1000,Hyperbeam
