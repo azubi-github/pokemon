@@ -21,9 +21,9 @@ while player_choosing:
 
     pokemon_found = False
 
-    for line in POKEMON_DATA:
+    for line in POKEMON_DATA.keys():
 
-        if pokemon_name == POKEMON_DATA[line]:
+        if pokemon_name == POKEMON_DATA[line]['name']:
 
             if pokemon_name in player_team_names:
                 print(f"{pokemon_name} is already in your Team ")
@@ -31,6 +31,7 @@ while player_choosing:
 
             else:
                 choice = Pokemon(*POKEMON_DATA.keys())
+                print(choice)
                 player_team.add_pokemon(choice)
                 player_team_names.append(POKEMON_DATA[pokemon_name])
                 print(f'{pokemon_name} added to your Team ')
@@ -43,11 +44,15 @@ while player_choosing:
         player_choosing = False
 
 enemy_team_number = len(player_team_names)
+#funkt noch net
+print(enemy_team_number)
 random_pokemon = []
+#funkt noch net
 for x in range(enemy_team_number):
-    random_pokemon.append(random.choice(POKEMON_DATA.keys()))
-#random_pokemon = random.sample(pokemon_file, enemy_team_number)
-
+    temphold = random.choice(list(POKEMON_DATA.items()))
+    print(temphold)
+    random_pokemon.append(temphold)
+print(random_pokemon)
 for line in random_pokemon:
     pokemon_list = line.strip().split(",")
     choice = Pokemon(*pokemon_list)
