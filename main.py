@@ -29,7 +29,7 @@ while player_choosing:
                 player_team.add_pokemon(choice)
                 player_team_names.append(pokemon_name)
                 print(f'{pokemon_name} added to your Team ')
-                break
+
         else:
             print('Pokemon isnt avalible ')
 
