@@ -8,51 +8,42 @@ player_team = PokemonTeam()
 player_team_names = []
 enemy_team = PokemonTeam()
 enemy_team_names = []
-
+random_pokemon = []
 player_choosing = True
-
-#with open("C:\\Users\\lukas_langer\\Desktop\\PycharmProjects\\Pokemon\\pokemonlist.txt", "r") as file:
-#   pokemon_file = file.readlines()
 
 print("Build your Team ")
 pokemon_found = True
 while player_choosing:
-    while pokemon_found:
-        pokemon_name = input("Pokemon name: ").strip().capitalize()
-
-        if pokemon_name in POKEMON_DATA:
-            pokemon_found = False
-
-
+    pokemon_name = input("Pokemon name: ").strip().capitalize()
     for line in POKEMON_DATA.keys():
-
         if pokemon_name == POKEMON_DATA[line]['name']:
-
             if pokemon_name in player_team_names:
                 print(f"{pokemon_name} is already in your Team ")
                 break
-
             else:
-
                 choice = Pokemon(name=POKEMON_DATA[pokemon_name]['name'], element=POKEMON_DATA[pokemon_name]['element'],
                                  hp=POKEMON_DATA[pokemon_name]['health'], dev=POKEMON_DATA[pokemon_name]['defense'],
                                  spd=POKEMON_DATA[pokemon_name]['speed'], ability=POKEMON_ATTACK['Vine_Whip'],
                                  atk=POKEMON_DATA[pokemon_name]['attack'])
                 print(choice)
                 player_team.add_pokemon(choice)
-                player_team_names.append(POKEMON_DATA[pokemon_name])
+                player_team_names.append(pokemon_name)
                 print(f'{pokemon_name} added to your Team ')
-            pokemon_found = True
-            break
+                break
+        else:
+            print('Pokemon isnt avalible ')
 
     another = input("Another Pokemon? (yes/no) ").lower().strip()
+    if another == "yes":
+        player_choosing = True
+    else:
+        break
+    if len(player_team_names) <= 0:
+        print("Atleast 1 Pokemon needed ")
+        player_choosing = True
 
-    if another != "yes":
-        player_choosing = False
 
 enemy_team_number = len(player_team_names)
-
-random_pokemon = []
 for x in range(enemy_team_number):
     temphold = random.choice(list(POKEMON_DATA.keys()))
     random_pokemon.append(temphold)
@@ -77,5 +68,4 @@ if ask_fight == "yes":
 else:
     print("Bye ")
 
-while fighting:
-    pass
+    print('test')
