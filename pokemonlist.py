@@ -1,9 +1,9 @@
 import pygame
 
 POKEMON_DATA = {
-    'Charmander':  {'name': 'Charmander','element': 'fire', 'health': 188, 'attack': 112, 'defense': 94, 'speed': 122},
-    'Bulbasaur': {'name': 'Bulbasaur','element': 'plant', 'health': 200, 'attack': 121, 'defense': 121, 'speed': 85},
-    'Squirtle': {'name': 'Squirtle','element': 'water', 'health': 198, 'attack': 94, 'defense': 121, 'speed': 81}
+    'Charmander':  {'name': 'Charmander', 'element': 'fire', 'health': 188, 'attack': 112, 'defense': 94, 'speed': 122},
+    'Bulbasaur': {'name': 'Bulbasaur', 'element': 'plant', 'health': 200, 'attack': 121, 'defense': 121, 'speed': 85},
+    'Squirtle': {'name': 'Squirtle', 'element': 'water', 'health': 198, 'attack': 94, 'defense': 121, 'speed': 81}
 }
 POKEMON_ATTACK = {
     'Water_Gun': {'Attack_Strength': 40, 'Accuracy': 100, 'element': 'water'},

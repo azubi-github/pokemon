@@ -1,6 +1,6 @@
 import pygame
 from pokemon import Pokemon
-from pokemonlist import POKEMON_DATA
+from pokemonlist import POKEMON_DATA, POKEMON_ATTACK
 from pokemonteam import PokemonTeam
 import random
 
@@ -30,7 +30,11 @@ while player_choosing:
                 break
 
             else:
-                choice = Pokemon(*POKEMON_DATA.keys())
+
+                choice = Pokemon(name=POKEMON_DATA[pokemon_name]['name'],element=POKEMON_DATA[pokemon_name]['element'],
+                                 hp=POKEMON_DATA[pokemon_name]['health'],dev=POKEMON_DATA[pokemon_name]['defense'],
+                                 spd=POKEMON_DATA[pokemon_name]['speed'],ability=POKEMON_ATTACK['Vine_Whip'],
+                                 atk=POKEMON_DATA[pokemon_name]['attack'])
                 print(choice)
                 player_team.add_pokemon(choice)
                 player_team_names.append(POKEMON_DATA[pokemon_name])
