@@ -15,3 +15,5 @@ ELEMENT_TYPE = {
     'Water': {'Fire': 2, 'Grass': 0.5, 'Water': 1, 'Normal': 1},
     'Plant': {'Fire': 0.5, 'Grass': 1, 'Water': 2, 'Normal': 1}
 }
+
+

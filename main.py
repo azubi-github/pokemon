@@ -67,3 +67,5 @@ if ask_fight == "yes":
 
 else:
     print("Bye ")
+
+    print('test')
