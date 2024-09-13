@@ -26,23 +26,26 @@ while player_choosing:
                                      hp=POKEMON_DATA[pokemon_name]['health'], dev=POKEMON_DATA[pokemon_name]['defense'],
                                      spd=POKEMON_DATA[pokemon_name]['speed'], ability=POKEMON_ATTACK['Vine_Whip'],
                                      atk=POKEMON_DATA[pokemon_name]['attack'])
-                    print(choice)
                     player_team.add_pokemon(choice)
                     player_team_names.append(pokemon_name)
                     print(f'{pokemon_name} added to your Team ')
+                    print(player_team_names)
                     break
         else:
             print('Pokemon isnt avalible ')
             break
-    another = input("Another Pokemon? (yes/no) ").lower().strip()
-    if another == "yes":
-        player_choosing = True
+    if len(player_team_names) == 3:
+        player_choosing = False
     else:
-        if len(player_team_names) <= 0:
-            print("Atleast 1 Pokemon needed ")
+        another = input("Another Pokemon? (yes/no) ").lower().strip()
+        if another == "yes":
             player_choosing = True
         else:
-            break
+            if len(player_team_names) <= 0:
+                print("Atleast 1 Pokemon needed ")
+                player_choosing = True
+            else:
+                break
 
 enemy_team_number = len(player_team_names)
 for x in range(enemy_team_number):
