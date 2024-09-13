@@ -16,32 +16,33 @@ pokemon_found = True
 while player_choosing:
     pokemon_name = input("Pokemon name: ").strip().capitalize()
     for line in POKEMON_DATA.keys():
-        if pokemon_name == POKEMON_DATA[line]['name']:
-            if pokemon_name in player_team_names:
-                print(f"{pokemon_name} is already in your Team ")
-                break
-            else:
-                choice = Pokemon(name=POKEMON_DATA[pokemon_name]['name'], element=POKEMON_DATA[pokemon_name]['element'],
-                                 hp=POKEMON_DATA[pokemon_name]['health'], dev=POKEMON_DATA[pokemon_name]['defense'],
-                                 spd=POKEMON_DATA[pokemon_name]['speed'], ability=POKEMON_ATTACK['Vine_Whip'],
-                                 atk=POKEMON_DATA[pokemon_name]['attack'])
-                print(choice)
-                player_team.add_pokemon(choice)
-                player_team_names.append(pokemon_name)
-                print(f'{pokemon_name} added to your Team ')
-
+        if pokemon_name in POKEMON_DATA:
+            if pokemon_name == POKEMON_DATA[line]['name']:
+                if pokemon_name in player_team_names:
+                    print(f"{pokemon_name} is already in your Team ")
+                    break
+                else:
+                    choice = Pokemon(name=POKEMON_DATA[pokemon_name]['name'], element=POKEMON_DATA[pokemon_name]['element'],
+                                     hp=POKEMON_DATA[pokemon_name]['health'], dev=POKEMON_DATA[pokemon_name]['defense'],
+                                     spd=POKEMON_DATA[pokemon_name]['speed'], ability=POKEMON_ATTACK['Vine_Whip'],
+                                     atk=POKEMON_DATA[pokemon_name]['attack'])
+                    print(choice)
+                    player_team.add_pokemon(choice)
+                    player_team_names.append(pokemon_name)
+                    print(f'{pokemon_name} added to your Team ')
+                    break
         else:
             print('Pokemon isnt avalible ')
-
+            break
     another = input("Another Pokemon? (yes/no) ").lower().strip()
     if another == "yes":
         player_choosing = True
     else:
-        break
-    if len(player_team_names) <= 0:
-        print("Atleast 1 Pokemon needed ")
-        player_choosing = True
-
+        if len(player_team_names) <= 0:
+            print("Atleast 1 Pokemon needed ")
+            player_choosing = True
+        else:
+            break
 
 enemy_team_number = len(player_team_names)
 for x in range(enemy_team_number):
@@ -68,4 +69,3 @@ if ask_fight == "yes":
 else:
     print("Bye ")
 
-    print('test')
