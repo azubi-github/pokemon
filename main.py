@@ -76,22 +76,31 @@ else:
     print("Bye ")
     fighting = False
 
+
 while fighting:
     battle_instance.display_actions(player_team.team[0], enemy_team.team[0])
-    action = input('Enter your Choice (1-4): (only 1 works) ')
+    action = input('Enter your Choice (1-4): (only 1 works) ').strip()
     if action == '1':
-        attack = input(f'Choose an ability: {POKEMON_ATTACK['Ember']}')
-        if attack == 'Ember':
+        attack = input(f'Choose an ability: Ember (1-4) ').strip()
+        if attack == '1':
             player_team.team[0].attack_enemy(enemy_team.team[0])
-        else:
+            if enemy_team.team[0].get_current_hp() >= 0:
+                print(f'{enemy_team.team[0].get_name()} fainted... ')
+                fighting = False
+        elif attack != '1':
             print('Invalid choice')
-    else:
+            break
+    elif action != '1':
         print('Invalid choice ')
+        break
 
     enemy_team.team[0].attack_player(player_team.team[0])
-
-    if player_team.team[0].get_hp() <= 0:
+    if player_team.team[0].get_current_hp() <= 0:
         print(f'{player_team.team[0].get_name()} fainted... ')
+        fighting = False
+    else:
+        break
+
 
 
 

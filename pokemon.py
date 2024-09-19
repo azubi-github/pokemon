@@ -10,6 +10,7 @@ class Pokemon:
         self.__atk = int(atk) + randint(0, 32)
         self.__dev = int(dev) + randint(0, 32)
         self.__spd = int(spd) + randint(0, 32)
+        self.__current_hp = self.__hp
         self.__ability = ability
 
     def get_speed(self):
@@ -17,25 +18,25 @@ class Pokemon:
 
     def attack_enemy(self, enemy_active_pokemon):
         damage = self.__atk - enemy_active_pokemon.get_defense()
-        damage = (0, damage)
+        damage = int(max(0, damage))
         enemy_active_pokemon.take_damage(damage)
         print(f'{self.__name} attacked {enemy_active_pokemon.get_name()} for {damage} damage! ')
+        print(f'{self.__name} has {self.__current_hp} HP left ')
 
     def attack_player(self, player_active_pokemon):
-        damage = self.__atk +  - player_active_pokemon.get_defense()
-        damage = (0, damage)
+        damage = self.__atk - player_active_pokemon.get_defense()
+        damage = int(max(0, damage))
         player_active_pokemon.take_damage(damage)
         print(f'{self.__name} attacked {player_active_pokemon.get_name()} for {damage} damage! ')
 
     def take_damage(self, damage):
-        self.__hp -= max(0, damage)
-        print(f'{self.__name} has {self.__hp} HP left ')
+        self.__current_hp = self.__current_hp - damage
 
     def get_defense(self):
         return self.__dev
 
-    def get_hp(self):
-        return self.__hp
+    def get_current_hp(self):
+        return self.__current_hp
 
     def get_name(self):
         return self.__name
