@@ -3,6 +3,7 @@ from pokemon import Pokemon
 from pokemonlist import POKEMON_DATA, POKEMON_ATTACK
 from pokemonteam import PokemonTeam
 import random
+from battle import Battle
 
 player_team = PokemonTeam()
 player_team_names = []
@@ -12,7 +13,6 @@ random_pokemon = []
 player_choosing = True
 
 print("Build your Team ")
-pokemon_found = True
 while player_choosing:
     pokemon_name = input("Pokemon name: ").strip().capitalize()
     for line in POKEMON_DATA.keys():
@@ -22,9 +22,10 @@ while player_choosing:
                     print(f"{pokemon_name} is already in your Team ")
                     break
                 else:
-                    choice = Pokemon(name=POKEMON_DATA[pokemon_name]['name'], element=POKEMON_DATA[pokemon_name]['element'],
+                    choice = Pokemon(name=POKEMON_DATA[pokemon_name]['name'],
+                                     element=POKEMON_DATA[pokemon_name]['element'],
                                      hp=POKEMON_DATA[pokemon_name]['health'], dev=POKEMON_DATA[pokemon_name]['defense'],
-                                     spd=POKEMON_DATA[pokemon_name]['speed'], ability=POKEMON_ATTACK['Vine_Whip'],
+                                     spd=POKEMON_DATA[pokemon_name]['speed'], ability=POKEMON_ATTACK['Ember'],
                                      atk=POKEMON_DATA[pokemon_name]['attack'])
                     player_team.add_pokemon(choice)
                     player_team_names.append(pokemon_name)
@@ -54,21 +55,44 @@ for x in range(enemy_team_number):
 
 pokemon_list = []
 for line in random_pokemon:
-    choice = Pokemon(name=POKEMON_DATA[line]['name'], element=POKEMON_DATA[line]['element'],
-                     hp=POKEMON_DATA[line]['health'], dev=POKEMON_DATA[line]['defense'],
-                     spd=POKEMON_DATA[line]['speed'], ability=POKEMON_ATTACK['Vine_Whip'],
-                     atk=POKEMON_DATA[line]['attack'])
-    enemy_team.add_pokemon(choice)
+    random_choice = Pokemon(name=POKEMON_DATA[line]['name'], element=POKEMON_DATA[line]['element'],
+                            hp=POKEMON_DATA[line]['health'], dev=POKEMON_DATA[line]['defense'],
+                            spd=POKEMON_DATA[line]['speed'], ability=POKEMON_ATTACK['Vine_Whip'],
+                            atk=POKEMON_DATA[line]['attack'])
+    enemy_team.add_pokemon(random_choice)
     enemy_team_names.append(POKEMON_DATA[line]['name'])
 
 print(player_team)
-
+print(enemy_team)
 ask_fight = input("Start a fight? (yes/no) ").strip().lower()
 
 if ask_fight == "yes":
     print("TO BATTLE! ")
+    battle_instance = Battle(enemy_team, player_team)
+    battle_instance.start_battle(enemy_team.team[0], player_team.team[0])
     fighting = True
 
 else:
     print("Bye ")
+    fighting = False
+
+while fighting:
+    battle_instance.display_actions(player_team.team[0], enemy_team.team[0])
+    action = input('Enter your Choice (1-4): (only 1 works) ')
+    if action == '1':
+        attack = input(f'Choose an ability: {POKEMON_ATTACK['Ember']}')
+        if attack == 'Ember':
+            player_team.team[0].attack_enemy(enemy_team.team[0])
+        else:
+            print('Invalid choice')
+    else:
+        print('Invalid choice ')
+
+    enemy_team.team[0].attack_player(player_team.team[0])
+
+    if player_team.team[0].get_hp() <= 0:
+        print(f'{player_team.team[0].get_name()} fainted... ')
+
+
+
 

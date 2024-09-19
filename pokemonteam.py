@@ -9,4 +9,4 @@ class PokemonTeam:
         self.team.append(pokemon)
 
     def __repr__(self):
-        return self.team
+        return str(self.team)

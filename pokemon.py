@@ -1,4 +1,5 @@
 from random import randint
+import abilities
 
 
 class Pokemon:
@@ -11,22 +12,30 @@ class Pokemon:
         self.__spd = int(spd) + randint(0, 32)
         self.__ability = ability
 
-    def damage(self):
-        return self.__atk + self.__ability.power
+    def get_speed(self):
+        return self.__spd
 
-    def roll_attack(self):
-        result = randint(1, 101)
-        return result <= self.__ability.accuracy
+    def attack_enemy(self, enemy_active_pokemon):
+        damage = self.__atk - enemy_active_pokemon.get_defense()
+        damage = (0, damage)
+        enemy_active_pokemon.take_damage(damage)
+        print(f'{self.__name} attacked {enemy_active_pokemon.get_name()} for {damage} damage! ')
 
-    def defend(self, base_dmg):
-        hit_dmg = max(0, base_dmg - self.__dev)
-        self.__hp -= hit_dmg
-        print(f'-{hit_dmg} HP')
-        print(f'{self.__name} current HP: {self.__hp}')
+    def attack_player(self, player_active_pokemon):
+        damage = self.__atk +  - player_active_pokemon.get_defense()
+        damage = (0, damage)
+        player_active_pokemon.take_damage(damage)
+        print(f'{self.__name} attacked {player_active_pokemon.get_name()} for {damage} damage! ')
 
-    def fainted(self):
-        print(f'{self.__name} fainted... ')
-        return self.__hp <= 0
+    def take_damage(self, damage):
+        self.__hp -= max(0, damage)
+        print(f'{self.__name} has {self.__hp} HP left ')
+
+    def get_defense(self):
+        return self.__dev
+
+    def get_hp(self):
+        return self.__hp
 
     def get_name(self):
         return self.__name
@@ -35,7 +44,4 @@ class Pokemon:
         return (f'{self.__name}, {self.__element}, HP: {self.__hp}, '
                 f'ATK: {self.__atk}, DEF: {self.__dev}, SPD: {self.__spd},'
                 f'Abilities: {self.__ability}')
-
-#    def __repr__(self):
-#        return self.__name, self.__element, self.__hp, self.__atk, self.__dev, self.__spd, self.__ability
 
