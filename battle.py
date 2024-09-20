@@ -9,7 +9,6 @@ class Battle:
             print(f'{self.player_pokemon} is faster ')
             first_pokemon = self.player_pokemon
             second_pokemon = self.enemy_pokemon
-
         else:
             print(f'{self.enemy_pokemon} is faster ')
             first_pokemon = self.enemy_pokemon
@@ -18,13 +17,14 @@ class Battle:
     def start_battle(self, enemy_active_pokemon, player_active_pokemon):
         print(f'Enemy Pokemon: {enemy_active_pokemon}')
         print(f'Player Pokemon: {player_active_pokemon}')
-        self.roll_speed()
 
     def check_fainted(self, player_active_pokemon, enemy_active_pokemon):
         if player_active_pokemon.get_current_hp() <= 0:
-            print('Your Pokemon fainted... ')
+            print('Your Pokemon fainted.. ')
+            return True
         elif enemy_active_pokemon.get_current_hp() <= 0:
-            print('Enemy Pokemon fainted! ')
+            print('Enemy Pokemon fainted!! ')
+            return True
 
     def attack_selection(self, player_active_pokemon, enemy_active_pokemon):
         print('choose your attack: Ember, Vine Whip, Water Gun (1-3) ')
@@ -47,10 +47,11 @@ class Battle:
     def switch(self):
         pass
 
-    def flee(self):
-        if self.player_pokemon.get_speed() >= self.enemy_pokemon.get_speed():
+    def flee(self, player_active_pokemon, enemy_active_pokemon):
+        if player_active_pokemon.get_speed() >= enemy_active_pokemon.get_speed():
             print('You escaped succesfully ')
-        elif self.player_pokemon.get_speed() <= self.enemy_pokemon.get_speed():
+            return False
+        elif player_active_pokemon.get_speed() <= enemy_active_pokemon.get_speed():
             print('You could´nt escape ')
 
     def display_actions(self, player_active_pokemon, enemy_active_pokemon):
@@ -66,6 +67,6 @@ class Battle:
         elif selection == '3':
             self.bag()
         elif selection == '4':
-            self.flee()
+            self.flee(player_active_pokemon, enemy_active_pokemon)
 
 

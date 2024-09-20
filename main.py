@@ -78,10 +78,16 @@ else:
 
 
 while fighting:
+    battle_instance.roll_speed()
     battle_instance.display_actions(player_team.team[0], enemy_team.team[0])
-    battle_instance.check_fainted(player_team.team[0], enemy_team.team[0])
+    if battle_instance.check_fainted(player_team.team[0], enemy_team.team[0]):
+        fighting = False
+        break
     battle_instance.enemy_turn(player_team.team[0], player_team.team[0])
-    battle_instance.check_fainted(player_team.team[0], enemy_team.team[0])
+    if battle_instance.check_fainted(player_team.team[0], enemy_team.team[0]):
+        fighting = False
+        break
+
 
 
 

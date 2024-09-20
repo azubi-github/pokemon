@@ -1,5 +1,6 @@
 from random import randint
 import abilities
+import battle
 
 
 class Pokemon:
@@ -17,15 +18,16 @@ class Pokemon:
         return self.__spd
 
     def attack_enemy(self, enemy_active_pokemon, player_active_pokemon):
-        damage = self.__atk - enemy_active_pokemon.get_defense()
-        damage = int(max(0, damage))
+        damage = player_active_pokemon.get_atk() - enemy_active_pokemon.get_defense()
+        damage = int(max(1, damage))
         enemy_active_pokemon.take_damage(damage)
         print(f'{player_active_pokemon.get_name()} attacked {enemy_active_pokemon.get_name()} for {damage} damage! ')
         print(f'{enemy_active_pokemon.get_name()} has {enemy_active_pokemon.get_current_hp()} HP left ')
 
+
     def attack_player(self, player_active_pokemon, enemy_active_pokemon):
-        damage = self.__atk - player_active_pokemon.get_defense()
-        damage = int(max(0, damage))
+        damage = enemy_active_pokemon.get_atk() - player_active_pokemon.get_defense()
+        damage = int(max(1, damage))
         player_active_pokemon.take_damage(damage)
         print(f'{enemy_active_pokemon.get_name()} attacked {player_active_pokemon.get_name()} for {damage} damage! ')
         print(f'{player_active_pokemon.get_name()} has {player_active_pokemon.get_current_hp()} HP left ')
@@ -38,6 +40,9 @@ class Pokemon:
 
     def get_current_hp(self):
         return self.__current_hp
+
+    def get_atk(self):
+        return self.__atk
 
     def get_name(self):
         return self.__name
