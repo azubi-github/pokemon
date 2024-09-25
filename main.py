@@ -24,7 +24,7 @@ while player_choosing:
                     choice = Pokemon(name=POKEMON_DATA[pokemon_name]['name'],
                                      element=POKEMON_DATA[pokemon_name]['element'],
                                      hp=POKEMON_DATA[pokemon_name]['health'], dev=POKEMON_DATA[pokemon_name]['defense'],
-                                     spd=POKEMON_DATA[pokemon_name]['speed'], ability=POKEMON_ATTACK['Ember'],
+                                     spd=POKEMON_DATA[pokemon_name]['speed'],
                                      atk=POKEMON_DATA[pokemon_name]['attack'])
                     player_team.add_pokemon(choice)
                     player_team_names.append(pokemon_name)
@@ -56,7 +56,7 @@ pokemon_list = []
 for line in random_pokemon:
     random_choice = Pokemon(name=POKEMON_DATA[line]['name'], element=POKEMON_DATA[line]['element'],
                             hp=POKEMON_DATA[line]['health'], dev=POKEMON_DATA[line]['defense'],
-                            spd=POKEMON_DATA[line]['speed'], ability=POKEMON_ATTACK['Vine_Whip'],
+                            spd=POKEMON_DATA[line]['speed'],
                             atk=POKEMON_DATA[line]['attack'])
     enemy_team.add_pokemon(random_choice)
     enemy_team_names.append(POKEMON_DATA[line]['name'])
