@@ -17,20 +17,6 @@ class Pokemon:
     def get_speed(self):
         return self.__spd
 
-    def attack_enemy(self, enemy_active_pokemon, player_active_pokemon):
-        damage = player_active_pokemon.get_atk() - enemy_active_pokemon.get_defense()
-        damage = int(max(1, damage))
-        enemy_active_pokemon.take_damage(damage)
-        print(f'{player_active_pokemon.get_name()} attacked {enemy_active_pokemon.get_name()} for {damage} damage! ')
-        print(f'{enemy_active_pokemon.get_name()} has {enemy_active_pokemon.get_current_hp()} HP left ')
-
-    def attack_player(self, enemy_active_pokemon, player_active_pokemon):
-        damage = enemy_active_pokemon.get_atk() - player_active_pokemon.get_defense()
-        damage = int(max(1, damage))
-        player_active_pokemon.take_damage(damage)
-        print(f'{enemy_active_pokemon.get_name()} attacked {player_active_pokemon.get_name()} for {damage} damage! ')
-        print(f'{player_active_pokemon.get_name()} has {player_active_pokemon.get_current_hp()} HP left ')
-
     def take_damage(self, damage):
         self.__current_hp = self.__current_hp - damage
 

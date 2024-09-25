@@ -1,4 +1,3 @@
-import pygame
 from pokemon import Pokemon
 from pokemonlist import POKEMON_DATA, POKEMON_ATTACK
 from pokemonteam import PokemonTeam
@@ -62,14 +61,27 @@ for line in random_pokemon:
     enemy_team.add_pokemon(random_choice)
     enemy_team_names.append(POKEMON_DATA[line]['name'])
 
-print(player_team)
-print(enemy_team)
+print(enemy_team_names)
 ask_fight = input("Start a fight? (yes/no) ").strip().lower()
 
 if ask_fight == "yes":
+    current_enemy_pokemon = enemy_team.team[0]
+    if len(player_team_names) > 1:
+        first_pokemon = input(f'{player_team_names} which Pokemon should go first? (1-3) ').strip()
+        if first_pokemon == '1':
+            current_player_pokemon = player_team.team[0]
+        elif first_pokemon == '2':
+            current_player_pokemon = player_team.team[1]
+        elif first_pokemon == '3':
+            current_player_pokemon = player_team.team[2]
+        else:
+            print('Team slot is empty!')
+    else:
+        current_player_pokemon = player_team.team[0]
+    print(f'{current_player_pokemon.get_name()} is you current pokemon')
     print("TO BATTLE! ")
     battle_instance = Battle(enemy_team, player_team)
-    battle_instance.start_battle(enemy_team.team[0], player_team.team[0])
+    battle_instance.start_battle(current_enemy_pokemon, current_player_pokemon)
     fighting = True
 
 else:
@@ -78,17 +90,13 @@ else:
 
 
 while fighting:
-    battle_instance.roll_speed()
-    battle_instance.display_actions(player_team.team[0], enemy_team.team[0])
-    if battle_instance.check_fainted(player_team.team[0], enemy_team.team[0]):
-        fighting = False
-        break
-    battle_instance.enemy_turn(player_team.team[0], player_team.team[0])
-    if battle_instance.check_fainted(player_team.team[0], enemy_team.team[0]):
-        fighting = False
-        break
-
-
+    battle_instance.display_actions(current_player_pokemon, current_enemy_pokemon)
+    if current_enemy_pokemon.get_current_hp() <= 0:
+        print(f'{current_enemy_pokemon.get_name()} fainted... ')
+    battle_instance.attack_player(current_player_pokemon, current_enemy_pokemon)
+    if current_player_pokemon.get_current_hp() <= 0:
+        print(f'{current_player_pokemon.get_name()} fainted... ')
+        battle_instance.switch()
 
 
 
