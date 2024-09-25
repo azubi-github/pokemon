@@ -6,11 +6,11 @@ class Battle:
 
     def roll_speed(self):
         if self.player_pokemon.team[0].get_speed() > self.enemy_pokemon.team[0].get_speed():
-            print(f'{self.player_pokemon} is faster ')
+            print(f'{self.player_pokemon.team[0].get_name()} is faster ')
             first_pokemon = self.player_pokemon
             second_pokemon = self.enemy_pokemon
         else:
-            print(f'{self.enemy_pokemon} is faster ')
+            print(f'{self.enemy_pokemon.team[0].get_name()} is faster ')
             first_pokemon = self.enemy_pokemon
             second_pokemon = self.player_pokemon
 

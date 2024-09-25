@@ -24,8 +24,7 @@ class Pokemon:
         print(f'{player_active_pokemon.get_name()} attacked {enemy_active_pokemon.get_name()} for {damage} damage! ')
         print(f'{enemy_active_pokemon.get_name()} has {enemy_active_pokemon.get_current_hp()} HP left ')
 
-
-    def attack_player(self, player_active_pokemon, enemy_active_pokemon):
+    def attack_player(self, enemy_active_pokemon, player_active_pokemon):
         damage = enemy_active_pokemon.get_atk() - player_active_pokemon.get_defense()
         damage = int(max(1, damage))
         player_active_pokemon.take_damage(damage)
