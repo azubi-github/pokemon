@@ -98,7 +98,7 @@ while fighting:
         print(f'{current_player_pokemon.get_name()} fainted... ')
         battle_instance.switch()
 
-
+print('test')
 
 
 
