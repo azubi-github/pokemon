@@ -17,8 +17,7 @@ class Battle:
             return True
 
     def attack_selection(self, player_active_pokemon, enemy_active_pokemon):
-        print('choose your attack: Ember, Vine Whip, Water Gun (1-3) ')
-        attack = input()
+        attack = input('choose your attack: Ember, Vine Whip, Water Gun (1-3) ')
         if attack == '1':
             self.attack_enemy(player_active_pokemon, enemy_active_pokemon)
         elif attack == '2':
@@ -46,10 +45,10 @@ class Battle:
 
     def display_actions(self, player_active_pokemon, enemy_active_pokemon):
         print(
-            f'{player_active_pokemon.get_name()} (HP: {player_active_pokemon.get_current_hp()}) vs {enemy_active_pokemon.get_name()} (HP: {enemy_active_pokemon.get_current_hp()})')
+            f'{player_active_pokemon.get_name()} (HP: {player_active_pokemon.get_current_hp()}) '
+            f'vs {enemy_active_pokemon.get_name()} (HP: {enemy_active_pokemon.get_current_hp()})')
         print('Choose an action: ')
-        print('1. Attack , 2. Switch, 3. Bag, 4. Flee ')
-        selection = input()
+        selection = input('1. Attack , 2. Switch, 3. Bag, 4. Flee ')
         if selection == '1':
             self.attack_selection(player_active_pokemon, enemy_active_pokemon)
         elif selection == '2':
@@ -59,17 +58,16 @@ class Battle:
         elif selection == '4':
             self.flee(player_active_pokemon, enemy_active_pokemon)
 
-    def attack_enemy(self, enemy_active_pokemon, player_active_pokemon):
+    def attack_enemy(self, player_active_pokemon, enemy_active_pokemon):
         damage = player_active_pokemon.get_atk() - enemy_active_pokemon.get_defense()
         damage = int(max(1, damage))
         enemy_active_pokemon.take_damage(damage)
         print(f'{player_active_pokemon.get_name()} attacked {enemy_active_pokemon.get_name()} for {damage} damage! ')
         print(f'{enemy_active_pokemon.get_name()} has {enemy_active_pokemon.get_current_hp()} HP left ')
 
-    def attack_player(self, enemy_active_pokemon, player_active_pokemon):
+    def attack_player(self, player_active_pokemon, enemy_active_pokemon):
         damage = enemy_active_pokemon.get_atk() - player_active_pokemon.get_defense()
         damage = int(max(1, damage))
         player_active_pokemon.take_damage(damage)
         print(f'{enemy_active_pokemon.get_name()} attacked {player_active_pokemon.get_name()} for {damage} damage! ')
         print(f'{player_active_pokemon.get_name()} has {player_active_pokemon.get_current_hp()} HP left ')
-print('test')

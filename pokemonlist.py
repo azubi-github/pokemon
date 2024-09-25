@@ -1,7 +1,7 @@
 import pygame
 
 POKEMON_DATA = {
-    'Charmander':  {'name': 'Charmander', 'element': 'Fire', 'health': 188, 'attack': 1120, 'defense': 94, 'speed': 122},
+    'Charmander':  {'name': 'Charmander', 'element': 'Fire', 'health': 188, 'attack': 112, 'defense': 94, 'speed': 122},
     'Bulbasaur': {'name': 'Bulbasaur', 'element': 'Grass', 'health': 200, 'attack': 121, 'defense': 121, 'speed': 85},
     'Squirtle': {'name': 'Squirtle', 'element': 'Water', 'health': 198, 'attack': 94, 'defense': 121, 'speed': 81}
 }

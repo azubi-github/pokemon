@@ -37,4 +37,3 @@ class Pokemon:
                 f'ATK: {self.__atk}, DEF: {self.__dev}, SPD: {self.__spd},'
                 f'Abilities: {self.__ability}')
 
-print('test')
