@@ -35,15 +35,22 @@ class Pokemon:
     def get_name(self):
         return self.__name
 
+    def get_ability_list(self):
+        ability_list = []
+        for x in range(3):
+            choice = random.choice(list(POKEMON_ATTACK[self.__element]))
+            if choice in ability_list:
+                while choice in ability_list:
+                    choice = random.choice(list(POKEMON_ATTACK[self.__element]))
+                ability_list.append(choice)
+            else:
+                ability_list.append(choice)
+        ability_list.append(random.choice(list(POKEMON_ATTACK["normal"])))
+        print(ability_list)
+        return ability_list
+
     def __repr__(self):
         return (f'{self.__name}, {self.__element}, HP: {self.__hp}, '
                 f'ATK: {self.__atk}, DEF: {self.__dev}, SPD: {self.__spd},'
                 f'Abilities: {self.__ability}')
-
-    def get_ability_list(self):
-        ability_list = []
-        for x in range(3):
-            ability_list.append(random.choice(list(POKEMON_ATTACK[self.__element])))
-        ability_list.append(random.choice(POKEMON_ATTACK["normal"]))
-        print(ability_list)
-        return ability_list
+print('test')
