@@ -1,7 +1,7 @@
 from random import randint
 import abilities
 import battle
-
+import random
 
 class Pokemon:
     def __init__(self, name, element, hp, atk, dev, spd, ability):
