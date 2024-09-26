@@ -29,8 +29,8 @@ while player_choosing:
                                      atk=POKEMON_DATA[pokemon_name]['attack'])
                     player_team.add_pokemon(choice)
                     player_team_names.append(pokemon_name)
-                    print(f'{pokemon_name} added to your Team ')
-                    print(player_team_names)
+                    print(f'{pokemon_name} {choice.get_ability_list()} added to your Team ')
+                    print(f'Your Team: {player_team_names} ')
                     break
         else:
             print('Pokemon isnt avalible ')
@@ -63,7 +63,6 @@ for line in random_pokemon:
     enemy_team.add_pokemon(random_choice)
     enemy_team_names.append(POKEMON_DATA[line]['name'])
 
-print(enemy_team_names)
 ask_fight = input("Start a fight? (yes/no) ").strip().lower()
 
 if ask_fight == "yes":

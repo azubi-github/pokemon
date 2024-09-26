@@ -7,8 +7,8 @@ class Battle:
         self.player_pokemon = player_active_pokemon
 
     def start_battle(self, enemy_active_pokemon, player_active_pokemon):
-        print(f'Enemy Pokemon: {enemy_active_pokemon} ')
-        print(f'Player Pokemon: {player_active_pokemon} b')
+        print(f'Enemy Pokemon: {enemy_active_pokemon.get_name()} ')
+        print(f'Player Pokemon: {player_active_pokemon.get_name()} ')
 
     def check_fainted(self, player_active_pokemon, enemy_active_pokemon):
         if player_active_pokemon.get_current_hp() <= 0:
