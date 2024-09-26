@@ -1,6 +1,4 @@
 from random import randint
-import abilities
-import battle
 import random
 
 from pokemonlist import POKEMON_ATTACK
@@ -45,7 +43,7 @@ class Pokemon:
                 ability_list.append(choice)
             else:
                 ability_list.append(choice)
-        ability_list.append(random.choice(list(POKEMON_ATTACK["normal"])))
+        ability_list.append(random.choice(list(POKEMON_ATTACK["Normal"])))
         print(ability_list)
         return ability_list
 
@@ -53,4 +51,3 @@ class Pokemon:
         return (f'{self.__name}, {self.__element}, HP: {self.__hp}, '
                 f'ATK: {self.__atk}, DEF: {self.__dev}, SPD: {self.__spd},'
                 f'Abilities: {self.__ability}')
-print("test")
