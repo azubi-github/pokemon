@@ -1,6 +1,3 @@
-from pokemon import Pokemon
-
-
 class PokemonTeam:
     def __init__(self):
         self.team = []

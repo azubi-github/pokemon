@@ -1,4 +1,6 @@
 from random import randint
+import abilities
+import battle
 import random
 
 from pokemonlist import POKEMON_ATTACK
@@ -13,7 +15,7 @@ class Pokemon:
         self.__dev = int(dev) + randint(0, 32)
         self.__spd = int(spd) + randint(0, 32)
         self.__current_hp = self.__hp
-        self.__ability = self.get_ability_list()
+        self.__ability = self.set_ability_list()
 
     def get_speed(self):
         return self.__spd
@@ -34,6 +36,9 @@ class Pokemon:
         return self.__name
 
     def get_ability_list(self):
+        return self.__ability
+
+    def set_ability_list(self):
         ability_list = []
         for x in range(3):
             choice = random.choice(list(POKEMON_ATTACK[self.__element]))
@@ -44,7 +49,6 @@ class Pokemon:
             else:
                 ability_list.append(choice)
         ability_list.append(random.choice(list(POKEMON_ATTACK["Normal"])))
-        print(ability_list)
         return ability_list
 
     def __repr__(self):
