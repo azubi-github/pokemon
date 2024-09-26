@@ -1,5 +1,5 @@
 from pokemon import Pokemon
-from pokemonlist import POKEMON_DATA, POKEMON_ATTACK
+from pokemonlist import POKEMON_DATA
 from pokemonteam import PokemonTeam
 import random
 from battle import Battle
@@ -23,7 +23,8 @@ while player_choosing:
                 else:
                     choice = Pokemon(name=POKEMON_DATA[pokemon_name]['name'],
                                      element=POKEMON_DATA[pokemon_name]['element'],
-                                     hp=POKEMON_DATA[pokemon_name]['health'], dev=POKEMON_DATA[pokemon_name]['defense'],
+                                     hp=POKEMON_DATA[pokemon_name]['health'],
+                                     dev=POKEMON_DATA[pokemon_name]['defense'],
                                      spd=POKEMON_DATA[pokemon_name]['speed'],
                                      atk=POKEMON_DATA[pokemon_name]['attack'])
                     player_team.add_pokemon(choice)
@@ -52,10 +53,11 @@ for x in range(enemy_team_number):
     temphold = random.choice(list(POKEMON_DATA.keys()))
     random_pokemon.append(temphold)
 
-pokemon_list = []
 for line in random_pokemon:
-    random_choice = Pokemon(name=POKEMON_DATA[line]['name'], element=POKEMON_DATA[line]['element'],
-                            hp=POKEMON_DATA[line]['health'], dev=POKEMON_DATA[line]['defense'],
+    random_choice = Pokemon(name=POKEMON_DATA[line]['name'],
+                            element=POKEMON_DATA[line]['element'],
+                            hp=POKEMON_DATA[line]['health'],
+                            dev=POKEMON_DATA[line]['defense'],
                             spd=POKEMON_DATA[line]['speed'],
                             atk=POKEMON_DATA[line]['attack'])
     enemy_team.add_pokemon(random_choice)
@@ -67,18 +69,17 @@ ask_fight = input("Start a fight? (yes/no) ").strip().lower()
 if ask_fight == "yes":
     current_enemy_pokemon = enemy_team.team[0]
     if len(player_team_names) > 1:
-        first_pokemon = input(f'{player_team_names} which Pokemon should go first? (1-3) ').strip()
-        if first_pokemon == '1':
-            current_player_pokemon = player_team.team[0]
-        elif first_pokemon == '2':
-            current_player_pokemon = player_team.team[1]
-        elif first_pokemon == '3':
-            current_player_pokemon = player_team.team[2]
-        else:
-            print('Team slot is empty!')
+        while True:
+            first_pokemon = int(input(f'{player_team_names} which Pokemon should go first? (1-{len(player_team_names)}) ').strip())
+            if first_pokemon < 1 or first_pokemon > len(player_team_names):
+                print('Team slot is empty! ')
+                continue
+            else:
+                current_player_pokemon = player_team.team[first_pokemon - 1]
+                break
     else:
         current_player_pokemon = player_team.team[0]
-    print(f'{current_player_pokemon.get_name()} is you current pokemon')
+    print(f'{current_player_pokemon.get_name()} is you current pokemon ')
     print("TO BATTLE! ")
     battle_instance = Battle(enemy_team, player_team)
     battle_instance.start_battle(current_enemy_pokemon, current_player_pokemon)
@@ -91,12 +92,12 @@ else:
 
 while fighting:
     battle_instance.display_actions(current_player_pokemon, current_enemy_pokemon)
-    if current_enemy_pokemon.get_current_hp() <= 0:
-        print(f'{current_enemy_pokemon.get_name()} fainted... ')
+    if battle_instance.check_fainted(current_player_pokemon, current_enemy_pokemon):
+        fighting = False
     battle_instance.attack_player(current_player_pokemon, current_enemy_pokemon)
-    if current_player_pokemon.get_current_hp() <= 0:
-        print(f'{current_player_pokemon.get_name()} fainted... ')
-        battle_instance.switch()
+    if battle_instance.check_fainted(current_player_pokemon, current_enemy_pokemon):
+        fighting = False
+
 
 
 
