@@ -37,4 +37,3 @@ POKEMON_ATTACK_VALUES = {
     'Brenneseln': {'Attack_Strength': 60, 'Accuracy': 80, 'element': 'Grass'},
     'Kastanien_Attentat': {'Attack_Strength': 80, 'Accuracy': 60, 'element': 'Grass'}
 }
-asd
