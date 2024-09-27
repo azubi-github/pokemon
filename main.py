@@ -80,7 +80,7 @@ if ask_fight == "yes":
         current_player_pokemon = player_team.team[0]
     print(f'{current_player_pokemon.get_name()} is you current pokemon ')
     print("TO BATTLE! ")
-    battle_instance = Battle(enemy_team, player_team)
+    battle_instance = Battle(enemy_team, player_team, player_team)
     battle_instance.start_battle(current_enemy_pokemon, current_player_pokemon)
     fighting = True
 
@@ -90,15 +90,10 @@ else:
 
 
 while fighting:
-    battle_instance.display_actions(current_player_pokemon, current_enemy_pokemon)
+    battle_instance.display_actions(current_player_pokemon, current_enemy_pokemon, player_team)
     if battle_instance.check_fainted(current_player_pokemon, current_enemy_pokemon):
         fighting = False
-    battle_instance.attack_player(current_player_pokemon, current_enemy_pokemon)
+    battle_instance.enemy_turn(current_player_pokemon, current_enemy_pokemon)
     if battle_instance.check_fainted(current_player_pokemon, current_enemy_pokemon):
         fighting = False
-
-
-
-
-
-
+as

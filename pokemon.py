@@ -32,6 +32,9 @@ class Pokemon:
     def get_current_hp(self):
         return self.__current_hp
 
+    def get_max_hp(self):
+        return self.__hp
+
     def get_atk(self):
         return self.__atk
 
