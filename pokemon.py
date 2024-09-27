@@ -1,6 +1,4 @@
 from random import randint
-
-import battle
 import random
 
 from pokemonlist import POKEMON_ATTACK
@@ -29,6 +27,9 @@ class Pokemon:
     def get_current_hp(self):
         return self.__current_hp
 
+    def get_max_hp(self):
+        return self.__hp
+
     def get_atk(self):
         return self.__atk
 
@@ -55,18 +56,6 @@ class Pokemon:
         chosen_ability = random.choice(self.__ability)
         return chosen_ability
 
-    def hitchance(self, ability_accuracy):
-        hitroll = random.randint(1, 101)
-        if hitroll > ability_accuracy:
-            print("missed")
-            return "miss"
-        elif ability_accuracy > hitroll:
-            if hitroll > 15:
-                print("hit")
-                return "hit"
-            else:
-                print("critical hit")
-                return "crit"
     def __repr__(self):
         return (f'{self.__name}, {self.__element}, HP: {self.__hp}, '
                 f'ATK: {self.__atk}, DEF: {self.__dev}, SPD: {self.__spd},'
