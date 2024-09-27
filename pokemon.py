@@ -1,5 +1,5 @@
 from random import randint
-import abilities
+
 import battle
 import random
 
@@ -50,6 +50,12 @@ class Pokemon:
                 ability_list.append(choice)
         ability_list.append(random.choice(list(POKEMON_ATTACK["Normal"])))
         return ability_list
+
+    def random_ability(self):
+        chosen_ability = random.choice(self.__ability)
+        return chosen_ability
+
+
 
     def __repr__(self):
         return (f'{self.__name}, {self.__element}, HP: {self.__hp}, '
