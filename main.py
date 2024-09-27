@@ -96,3 +96,4 @@ while fighting:
     battle_instance.enemy_turn(current_player_pokemon, current_enemy_pokemon)
     if battle_instance.check_fainted(current_player_pokemon, current_enemy_pokemon):
         fighting = False
+as
