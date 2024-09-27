@@ -66,7 +66,7 @@ class Battle:
     def attack_enemy(self, player_active_pokemon, enemy_active_pokemon, ability):
         hitroll = player_active_pokemon.hitchance(POKEMON_ATTACK_VALUES[ability]['Accuracy'])
         if "hit" == hitroll:
-            damage = player_active_pokemon.get_atk() * (0.01 * (int(POKEMON_ATTACK_VALUES[ability]['Attack_Strength']))) / (1 + (enemy_active_pokemon.get_defense() / 200))
+            damage = (player_active_pokemon.get_atk() * player_active_pokemon.element_abfrage(enemy_active_pokemon.get_element())) * (0.01 * (int(POKEMON_ATTACK_VALUES[ability]['Attack_Strength']))) / (1 + (enemy_active_pokemon.get_defense() / 200))
             damage = int(max(1, damage))
             enemy_active_pokemon.take_damage(damage)
             print(f'{player_active_pokemon.get_name()} attacked {enemy_active_pokemon.get_name()} for {damage} damage! ')
@@ -74,7 +74,7 @@ class Battle:
         elif "miss" == hitroll:
             pass
         elif "crit" == hitroll:
-            damage = (player_active_pokemon.get_atk() * 1.5) * (0.01 * (int(POKEMON_ATTACK_VALUES[ability]['Attack_Strength']))) / (1 + (enemy_active_pokemon.get_defense() / 200))
+            damage = (player_active_pokemon.get_atk()* player_active_pokemon.element_abfrage(enemy_active_pokemon.get_element()) * 1.5) * (0.01 * (int(POKEMON_ATTACK_VALUES[ability]['Attack_Strength']))) / (1 + (enemy_active_pokemon.get_defense() / 200))
             damage = int(max(1, damage))
             enemy_active_pokemon.take_damage(damage)
             print(f'{player_active_pokemon.get_name()} attacked {enemy_active_pokemon.get_name()} for {damage} damage! ')
@@ -84,7 +84,7 @@ class Battle:
         ability = enemy_active_pokemon.random_ability()
         hitroll = player_active_pokemon.hitchance(POKEMON_ATTACK_VALUES[ability]['Accuracy'])
         if "hit" == hitroll:
-            damage = enemy_active_pokemon.get_atk() * (0.01 * (int(POKEMON_ATTACK_VALUES[ability]['Attack_Strength']))) / (1 + (player_active_pokemon.get_defense() / 200))
+            damage = (enemy_active_pokemon.get_atk() * enemy_active_pokemon.element_abfrage(player_active_pokemon.get_element())) * (0.01 * (int(POKEMON_ATTACK_VALUES[ability]['Attack_Strength']))) / (1 + (player_active_pokemon.get_defense() / 200))
             damage = int(max(1, damage))
             player_active_pokemon.take_damage(damage)
             print(f'{enemy_active_pokemon.get_name()} attacked {player_active_pokemon.get_name()} for {damage} damage! ')
@@ -92,7 +92,7 @@ class Battle:
         elif "miss" == hitroll:
             pass
         elif "crit" == hitroll:
-            damage = (enemy_active_pokemon.get_atk() * 1.5) * (0.01 * (int(POKEMON_ATTACK_VALUES[ability]['Attack_Strength']))) / (1 + (player_active_pokemon.get_defense() / 200))
+            damage = (enemy_active_pokemon.get_atk() * enemy_active_pokemon.element_abfrage(player_active_pokemon.get_element()) *1.5) * (0.01 * (int(POKEMON_ATTACK_VALUES[ability]['Attack_Strength']))) / (1 + (player_active_pokemon.get_defense() / 200))
             damage = int(max(1, damage))
             player_active_pokemon.take_damage(damage)
             print(f'{enemy_active_pokemon.get_name()} attacked {player_active_pokemon.get_name()} for {damage} damage! ')

@@ -3,7 +3,7 @@ from random import randint
 import battle
 import random
 
-from pokemonlist import POKEMON_ATTACK
+from pokemonlist import POKEMON_ATTACK, ELEMENT_TYPE
 
 
 class Pokemon:
@@ -19,6 +19,9 @@ class Pokemon:
 
     def get_speed(self):
         return self.__spd
+
+    def get_element(self):
+        return self.__element
 
     def take_damage(self, damage):
         self.__current_hp = self.__current_hp - damage
@@ -67,6 +70,10 @@ class Pokemon:
             else:
                 print("critical hit")
                 return "crit"
+
+    def element_abfrage(self, enemy_element):
+        multiplier = ELEMENT_TYPE[self.__element][enemy_element]
+        return multiplier
     def __repr__(self):
         return (f'{self.__name}, {self.__element}, HP: {self.__hp}, '
                 f'ATK: {self.__atk}, DEF: {self.__dev}, SPD: {self.__spd},'
