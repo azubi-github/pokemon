@@ -112,4 +112,3 @@ class Battle:
             print(
                 f'{enemy_active_pokemon.get_name()} attacked {player_active_pokemon.get_name()} for {damage} damage! ')
             print(f'{player_active_pokemon.get_name()} has {player_active_pokemon.get_current_hp()} HP left ')
-print("test")
