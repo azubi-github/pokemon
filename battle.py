@@ -1,6 +1,6 @@
-import random
-from pokemonteam import PokemonTeam
+import pokemon
 from pokemonlist import POKEMON_ATTACK_VALUES
+from pokemonteam import PokemonTeam
 
 
 class Battle:
