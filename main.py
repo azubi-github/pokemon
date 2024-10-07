@@ -1,4 +1,4 @@
-from pokemon import Pokemon
+from Pokemon import Pokemon
 from pokemonlist import POKEMON_DATA
 from pokemonteam import PokemonTeam
 import random
