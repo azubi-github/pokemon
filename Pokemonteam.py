@@ -12,11 +12,5 @@ class PokemonTeam:
     def remove_pokemon(self):
         pass
 
-    def switch(self, player_pokemon_team, player_active_pokemon):
-        print('Which Pokemon should be send in? ')
-        team_number = int(input(f'{player_pokemon_team} )'))
-        player_active_pokemon = player_pokemon_team[team_number - 1]
-        print(player_active_pokemon)
-
     def __repr__(self):
-        return str(self.team)
+        return self.team

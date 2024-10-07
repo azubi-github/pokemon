@@ -1,8 +1,8 @@
 from Pokemon import Pokemon
 from pokemonlist import POKEMON_DATA
-from pokemonteam import PokemonTeam
+from Pokemonteam import PokemonTeam
 import random
-from battle import Battle
+from Battle import Battle
 
 player_team = []
 player_team_names = []
@@ -63,35 +63,33 @@ for line in random_pokemon:
     enemy_team.append(random_choice)
     enemy_team_names.append(POKEMON_DATA[line]['name'])
 
-ask_fight = input("Start a fight? (yes/no) ").strip().lower()
+current_enemy_pokemon = enemy_team[0]
 
-if ask_fight == "yes":
-    current_enemy_pokemon = enemy_team[0]
-    if len(player_team_names) > 1:
-        while True:
-            first_pokemon = int(input(f'{player_team_names} which Pokemon should go first? (1-{len(player_team_names)}) ').strip())
-            if first_pokemon < 1 or first_pokemon > len(player_team_names):
-                print('Team slot is empty! ')
-                continue
-            else:
-                current_player_pokemon = player_team[first_pokemon - 1]
-                break
-    else:
-        current_player_pokemon = player_team[0]
-    print(f'{current_player_pokemon.get_name()} is you current pokemon ')
-    print("TO BATTLE! ")
-    battle_instance = Battle(enemy_team, player_team)
-    battle_instance.start_battle(current_enemy_pokemon, current_player_pokemon)
-    fighting = True
-
+if len(player_team_names) > 1:
+    while True:
+        first_pokemon = int(input(f'{player_team_names} which Pokemon should go first? (1-{len(player_team_names)}) ').strip())
+        if first_pokemon < 1 or first_pokemon > len(player_team_names):
+            print('Team slot is empty! ')
+            continue
+        else:
+            current_player_pokemon = player_team[first_pokemon - 1]
+            break
 else:
-    print("I dont care! :) ")
-    fighting = True
+    current_player_pokemon = player_team[0]
+
+print(f'{current_player_pokemon.get_name()} is you current pokemon ')
+battle_instance = Battle(enemy_team, player_team)
+battle_instance.start_battle(current_enemy_pokemon, current_player_pokemon)
+fighting = True
 
 while fighting:
     battle_instance.display_actions(current_player_pokemon, current_enemy_pokemon, player_team)
     if battle_instance.check_fainted(current_player_pokemon, current_enemy_pokemon):
         fighting = False
+        break
     battle_instance.enemy_turn(current_player_pokemon, current_enemy_pokemon)
     if battle_instance.check_fainted(current_player_pokemon, current_enemy_pokemon):
         fighting = False
+        break
+
+

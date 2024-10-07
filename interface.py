@@ -1,5 +1,5 @@
 import pygame
-
+from Battle import Battle
 pygame.init()
 
 SCREEN_WIDTH = 800

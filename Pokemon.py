@@ -1,6 +1,6 @@
 from random import randint
 
-import battle
+import Battle
 import random
 
 from pokemonlist import POKEMON_ATTACK, ELEMENT_TYPE
@@ -64,19 +64,17 @@ class Pokemon:
     def hitchance(self, ability_accuracy):
         hitroll = random.randint(1, 101)
         if hitroll > ability_accuracy:
-            print("missed")
             return "miss"
         elif ability_accuracy > hitroll:
             if hitroll > 15:
-                print("hit")
                 return "hit"
             else:
-                print("critical hit")
                 return "crit"
 
     def element_abfrage(self, enemy_element):
         multiplier = ELEMENT_TYPE[self.__element][enemy_element]
         return multiplier
+
     def __repr__(self):
         return (f'{self.__name}, {self.__element}, HP: {self.__hp}, '
                 f'ATK: {self.__atk}, DEF: {self.__dev}, SPD: {self.__spd},'
