@@ -1,3 +1,5 @@
+import random
+
 from pokemonlist import POKEMON_ATTACK_VALUES
 from Pokemonteam import PokemonTeam
 
@@ -15,25 +17,32 @@ class Battle:
 
     def check_player_fainted(self, player_active_pokemon, player_team):
         team_len = player_team.get_team_len()
-        if player_active_pokemon.get_current_hp() <= 0:
+        if player_active_pokemon.is_fainted():
             print(f'Your {player_active_pokemon.get_name()} fainted.. ')
-            if player_active_pokemon.get_current_hp() >= -1000:
-                print(f'Sorry buddy... your {player_active_pokemon.get_name()} got blasted out of existence...')
-                if team_len > 1:
-                    player_active_pokemon = player_team.switch(player_active_pokemon, player_team)
-                else:
-                    return True
+            index = player_team.get_team().index(player_active_pokemon)
+            player_team.remove_fainted_pokemon(index)
+            team_len = team_len - 1
+            if team_len >= 1:
+                player_active_pokemon = player_team.switch()
+            else:
+                print('Your team lost..')
+                return True
         return player_active_pokemon
 
     def check_enemy_fainted(self, enemy_active_pokemon, enemy_team):
         team_len = enemy_team.get_team_len()
-        if enemy_active_pokemon.get_current_hp() <= 0:
+        if enemy_active_pokemon.is_fainted():
             print(f'{enemy_active_pokemon.get_name()} fainted.. ')
-            if enemy_active_pokemon.get_current_hp() >= -1000:
-                print(f'You blasted {enemy_active_pokemon.get_name()} out of existence!')
-                if team_len > 1:
-                    # PokemonTeam.enemy_switch(enemy_active_pokemon, enemy_team)
-                    pass
+            index = enemy_team.get_team().index(enemy_active_pokemon)
+            enemy_team.remove_fainted_pokemon(index)
+            if team_len > 1:
+                enemy_active_pokemon = random.choice(enemy_team.get_team())
+                # PokemonTeam.enemy_switch(enemy_active_pokemon, enemy_team)
+            elif team_len == 1:
+                enemy_active_pokemon = random.choice(enemy_team.get_team())
+            elif team_len <= 0:
+                enemy_active_pokemon = 'dead'
+        return enemy_active_pokemon
 
     def attack_selection(self, player_active_pokemon, enemy_active_pokemon):
         abilities = player_active_pokemon.get_ability_list()
@@ -43,7 +52,7 @@ class Battle:
 
         while True:
             try:
-                choice = int(input(f'choose your attack: {abilities} (1-{len(abilities)}) ')) - 1
+                choice = int(input()) - 1
                 if choice < 0 or choice > len(abilities):
                     print('Invalid selection ')
                 else:
@@ -77,7 +86,7 @@ class Battle:
         if selection == '1':
             self.attack_selection(player_active_pokemon, enemy_active_pokemon)
         elif selection == '2':
-            player_active_pokemon = player_team.switch(player_active_pokemon, player_team)
+            player_active_pokemon = player_team.switch()
         elif selection == '3':
             self.bag()
         elif selection == '4':

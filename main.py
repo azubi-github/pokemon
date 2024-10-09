@@ -63,7 +63,7 @@ for line in random_pokemon:
     enemy_team.add_pokemon(random_choice)
     enemy_team_names.append(POKEMON_DATA[line]['name'])
 
-enemy_active_pokemon = enemy_team.get_pokemon(0)
+enemy_active_pokemon = random.choice(enemy_team.get_team())
 
 if len(player_team_names) > 1:
     print('Which Pokémon should be sent in? ')
@@ -89,9 +89,6 @@ fighting = True
 
 while fighting:
     player_active_pokemon = battle_instance.display_actions(player_active_pokemon, enemy_active_pokemon, player_team)
-
-    if battle_instance.check_enemy_fainted(enemy_active_pokemon, enemy_team):
-        fighting = False
-
+    enemy_active_pokemon = battle_instance.check_enemy_fainted(enemy_active_pokemon, enemy_team)
     battle_instance.enemy_turn(player_active_pokemon, enemy_active_pokemon)
     player_active_pokemon = battle_instance.check_player_fainted(player_active_pokemon, player_team)

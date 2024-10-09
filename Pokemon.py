@@ -1,7 +1,5 @@
 from random import randint
-import Battle
 import random
-
 from pokemonlist import POKEMON_ATTACK, ELEMENT_TYPE
 
 
@@ -9,13 +7,14 @@ class Pokemon:
     """Erstellt ein Pokemon mit der übergabe von Name, Element, HP, ATK, DEV und SPD"""
     def __init__(self, name, element, hp, atk, dev, spd):
         self.__name = name
-        self.__element = element
+        self.__element = str(element)
         self.__hp = int(hp) + randint(0, 32)
         self.__atk = int(atk) + randint(0, 32)
         self.__dev = int(dev) + randint(0, 32)
         self.__spd = int(spd) + randint(0, 32)
         self.__current_hp = self.__hp
         self.__ability = self.set_ability_list()
+        self.__fainted = False
 
     def get_speed(self):
         return self.__spd
@@ -70,6 +69,11 @@ class Pokemon:
                 return "hit"
             else:
                 return "crit"
+
+    def is_fainted(self):
+        if self.__current_hp <= 0:
+            self.__fainted = True
+        return self.__fainted
 
     def element_abfrage(self, enemy_element):
         multiplier = ELEMENT_TYPE[self.__element][enemy_element]

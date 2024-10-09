@@ -45,9 +45,7 @@ POKEMON_DATA = {
     'Tragosso': {'name': 'Tragosso', 'element': 'Rock', 'health': 180, 'attack': 90, 'defense': 100, 'speed': 40},
     'Krabby': {'name': 'Krabby', 'element': 'Water', 'health': 130, 'attack': 105, 'defense': 90, 'speed': 50},
     'Traumato': {'name': 'Traumato', 'element': 'Ghost', 'health': 165, 'attack': 95, 'defense': 70, 'speed': 55},
-    'Muschas': {'name': 'Muschas', 'element': 'Water', 'health': 140, 'attack': 50, 'defense': 100, 'speed': 40},
-    'Selima': {'name': 'Selima', 'element': 'Water', 'health': 140, 'attack': 60, 'defense': 60, 'speed': 65},
-    'Jurob': {'name': 'Jurob', 'element': 'Psychic', 'health': 140, 'attack': 70, 'defense': 55, 'speed': 45},
+    'Muschas': {'name': 'Muschas', 'element': 'Water', 'health': 140, 'attack': 50, 'defense': 100, 'speed': 40}
 }
 
 
