@@ -1,6 +1,6 @@
 import random
 
-from pokemonlist import POKEMON_ATTACK_VALUES
+from pokemonlist import POKEMON_ATTACK_VALUES, ELEMENT_TYPE
 from Pokemonteam import PokemonTeam
 
 
@@ -94,15 +94,22 @@ class Battle:
         return player_active_pokemon
 
     def attack_enemy(self, player_active_pokemon, enemy_active_pokemon, ability):
+        multip = player_active_pokemon.element_abfrage(enemy_active_pokemon, ability)
         hitroll = player_active_pokemon.hitchance(POKEMON_ATTACK_VALUES[ability]['Accuracy'])
         if "hit" == hitroll:
             damage = player_active_pokemon.get_atk() * (
                         0.01 * (int(POKEMON_ATTACK_VALUES[ability]['Attack_Strength']))) / (
-                                 1 + (enemy_active_pokemon.get_defense() / 200))
+                                 1 + (enemy_active_pokemon.get_defense() / 200) * multip)
             damage = int(max(1, damage))
             enemy_active_pokemon.take_damage(damage)
             print(
                 f'{player_active_pokemon.get_name()} attacked {enemy_active_pokemon.get_name()} for {damage} damage! ')
+            if multip == 0.5:
+                print("Ist kacke")
+            elif multip == 0:
+                print("ist nutzlos")
+            elif multip == 2:
+                print("Bruder das schallert")
             print(f'{enemy_active_pokemon.get_name()} has {enemy_active_pokemon.get_current_hp()} HP left ')
         elif "miss" == hitroll:
             print(f'{player_active_pokemon.get_name()} misses {enemy_active_pokemon.get_name()}')
@@ -116,16 +123,23 @@ class Battle:
             print(f'{player_active_pokemon.get_name()} landed a critical hit!')
             print(
                 f'{player_active_pokemon.get_name()} attacked {enemy_active_pokemon.get_name()} for {damage} damage! ')
+            if multip == 0.5:
+                print("Ist kacke")
+            elif multip == 0:
+                print("ist nutzlos")
+            elif multip == 2:
+                print("Bruder das schallert")
             print(f'{enemy_active_pokemon.get_name()} has {enemy_active_pokemon.get_current_hp()} HP left ')
 
     def attack_player(self, player_active_pokemon, enemy_active_pokemon):
         ability = enemy_active_pokemon.random_ability()
+        multip = player_active_pokemon.element_abfrage(player_active_pokemon, ability)
         print(f'{enemy_active_pokemon.get_name()} uses {ability}')
         hitroll = player_active_pokemon.hitchance(POKEMON_ATTACK_VALUES[ability]['Accuracy'])
         if "hit" == hitroll:
             damage = enemy_active_pokemon.get_atk() * (
                         0.01 * (int(POKEMON_ATTACK_VALUES[ability]['Attack_Strength']))) / (
-                                 1 + (player_active_pokemon.get_defense() / 200))
+                                 1 + (player_active_pokemon.get_defense() / 200) * multip)
             damage = int(max(1, damage))
             player_active_pokemon.take_damage(damage)
             print(
@@ -143,4 +157,10 @@ class Battle:
             print(f'{enemy_active_pokemon.get_name()} landed a critical hit!')
             print(
                 f'{enemy_active_pokemon.get_name()} attacked {player_active_pokemon.get_name()} for {damage} damage! ')
+            if multip == 0.5:
+                print("Ist kacke")
+            elif multip == 0:
+                print("ist nutzlos")
+            elif multip == 2:
+                print("Bruder das schallert")
             print(f'{player_active_pokemon.get_name()} has {player_active_pokemon.get_current_hp()} HP left ')
