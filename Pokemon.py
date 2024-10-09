@@ -7,6 +7,7 @@ from pokemonlist import POKEMON_ATTACK, ELEMENT_TYPE
 
 
 class Pokemon:
+    """Erstellt ein Pokemon mit der übergabe von Name, Element, HP, ATK, DEV und SPD"""
     def __init__(self, name, element, hp, atk, dev, spd):
         self.__name = name
         self.__element = element
