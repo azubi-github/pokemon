@@ -48,7 +48,6 @@ POKEMON_DATA = {
     'Muschas': {'name': 'Muschas', 'element': 'Water', 'health': 140, 'attack': 50, 'defense': 100, 'speed': 40},
     'Selima': {'name': 'Selima', 'element': 'Water', 'health': 140, 'attack': 60, 'defense': 60, 'speed': 65},
     'Jurob': {'name': 'Jurob', 'element': 'Psychic', 'health': 140, 'attack': 70, 'defense': 55, 'speed': 45},
-
 }
 
 

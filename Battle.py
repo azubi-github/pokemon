@@ -14,20 +14,24 @@ class Battle:
         print(f'Player Pokemon: {player_active_pokemon.get_name()} ')
 
     def check_player_fainted(self, player_active_pokemon, player_team):
+        team_len = player_team.get_team_len()
         if player_active_pokemon.get_current_hp() <= 0:
             print(f'Your {player_active_pokemon.get_name()} fainted.. ')
-            if player_active_pokemon.get_current_hp() <= 1000:
+            if player_active_pokemon.get_current_hp() >= -1000:
                 print(f'Sorry buddy... your {player_active_pokemon.get_name()} got blasted out of existence...')
-                if player_team.get_team_len > 1:
+                if team_len > 1:
                     player_active_pokemon = player_team.switch(player_active_pokemon, player_team)
+                else:
+                    return True
         return player_active_pokemon
 
     def check_enemy_fainted(self, enemy_active_pokemon, enemy_team):
+        team_len = enemy_team.get_team_len()
         if enemy_active_pokemon.get_current_hp() <= 0:
             print(f'{enemy_active_pokemon.get_name()} fainted.. ')
-            if enemy_active_pokemon.get_current_hp() <= 1000:
+            if enemy_active_pokemon.get_current_hp() >= -1000:
                 print(f'You blasted {enemy_active_pokemon.get_name()} out of existence!')
-                if enemy_team.get_team_len() > 1:
+                if team_len > 1:
                     # PokemonTeam.enemy_switch(enemy_active_pokemon, enemy_team)
                     pass
 
@@ -40,7 +44,7 @@ class Battle:
         while True:
             try:
                 choice = int(input(f'choose your attack: {abilities} (1-{len(abilities)}) ')) - 1
-                if choice > 1 or choice > len(abilities):
+                if choice < 0 or choice > len(abilities):
                     print('Invalid selection ')
                 else:
                     ability = player_active_pokemon.get_ability_list()[choice]
