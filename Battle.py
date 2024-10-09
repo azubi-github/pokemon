@@ -1,36 +1,53 @@
-import Pokemonteam
 from pokemonlist import POKEMON_ATTACK_VALUES
 from Pokemonteam import PokemonTeam
 
 
 class Battle:
-    def __init__(self, enemy_active_pokemon, player_active_pokemon):
+    def __init__(self, enemy_active_pokemon, player_active_pokemon, enemy_team, player_team):
         self.enemy_pokemon = enemy_active_pokemon
         self.player_pokemon = player_active_pokemon
+        self.enemy_team = enemy_team
+        self.player_team = player_team
 
     def start_battle(self, enemy_active_pokemon, player_active_pokemon):
         print(f'Enemy Pokemon: {enemy_active_pokemon.get_name()} ')
         print(f'Player Pokemon: {player_active_pokemon.get_name()} ')
 
-    def check_fainted(self, player_active_pokemon, enemy_active_pokemon):
+    def check_player_fainted(self, player_active_pokemon, player_team):
         if player_active_pokemon.get_current_hp() <= 0:
-            print('Your Pokemon fainted.. ')
-            return True
-        elif enemy_active_pokemon.get_current_hp() <= 0:
-            print('Enemy Pokemon fainted!! ')
-            return True
+            print(f'Your {player_active_pokemon.get_name()} fainted.. ')
+            if player_active_pokemon.get_current_hp() <= 1000:
+                print(f'Sorry buddy... your {player_active_pokemon.get_name()} got blasted out of existence...')
+                if player_team.get_team_len > 1:
+                    player_active_pokemon = player_team.switch(player_active_pokemon, player_team)
+        return player_active_pokemon
+
+    def check_enemy_fainted(self, enemy_active_pokemon, enemy_team):
+        if enemy_active_pokemon.get_current_hp() <= 0:
+            print(f'{enemy_active_pokemon.get_name()} fainted.. ')
+            if enemy_active_pokemon.get_current_hp() <= 1000:
+                print(f'You blasted {enemy_active_pokemon.get_name()} out of existence!')
+                if enemy_team.get_team_len() > 1:
+                    # PokemonTeam.enemy_switch(enemy_active_pokemon, enemy_team)
+                    pass
 
     def attack_selection(self, player_active_pokemon, enemy_active_pokemon):
         abilities = player_active_pokemon.get_ability_list()
+        print('Choose an Ability: ')
+        for i, ability in enumerate(abilities):
+            print(f'{i + 1}. {ability}')
+
         while True:
-            if len(abilities) > 1:
-                choice = int(input(f'choose your attack: {abilities} (1-{len(abilities)}) '))
-                if choice < 1 or choice > len(abilities):
-                    print('Ability not avalible ')
+            try:
+                choice = int(input(f'choose your attack: {abilities} (1-{len(abilities)}) ')) - 1
+                if choice > 1 or choice > len(abilities):
+                    print('Invalid selection ')
                 else:
-                    ability = player_active_pokemon.get_ability_list()[choice - 1]
+                    ability = player_active_pokemon.get_ability_list()[choice]
                     print(f'{player_active_pokemon.get_name()} uses {ability}')
                     self.attack_enemy(player_active_pokemon, enemy_active_pokemon, ability)
+            except ValueError:
+                print('Please enter a number ')
             break
 
     def enemy_turn(self, player_active_pokemon, enemy_active_pokemon):
@@ -47,12 +64,6 @@ class Battle:
             print('You could´nt escape ')
             return False
 
-    def switch(self, player_pokemon_team, player_active_pokemon):
-        print('Which Pokemon should be send in? ')
-        team_number = int(input(f'{player_pokemon_team} \n '))
-        player_active_pokemon = player_pokemon_team[team_number - 1]
-        print(f'{player_active_pokemon.get_name()} is now active')
-
     def display_actions(self, player_active_pokemon, enemy_active_pokemon, player_team):
         print(
             f'{player_active_pokemon.get_name()} (HP: {player_active_pokemon.get_current_hp()}) '
@@ -62,11 +73,12 @@ class Battle:
         if selection == '1':
             self.attack_selection(player_active_pokemon, enemy_active_pokemon)
         elif selection == '2':
-            self.switch(player_team, player_active_pokemon)
+            player_active_pokemon = player_team.switch(player_active_pokemon, player_team)
         elif selection == '3':
             self.bag()
         elif selection == '4':
             self.flee(player_active_pokemon, enemy_active_pokemon)
+        return player_active_pokemon
 
     def attack_enemy(self, player_active_pokemon, enemy_active_pokemon, ability):
         hitroll = player_active_pokemon.hitchance(POKEMON_ATTACK_VALUES[ability]['Accuracy'])
