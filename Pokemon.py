@@ -16,6 +16,7 @@ class Pokemon:
         self.__ability = self.set_ability_list()
         self.__fainted = False
 
+
     def get_speed(self):
         return self.__spd
 
@@ -24,6 +25,14 @@ class Pokemon:
 
     def take_damage(self, damage):
         self.__current_hp = self.__current_hp - damage
+
+    def healing(self, heal_amount):
+        self.__current_hp = self.__current_hp + heal_amount
+        healed_amount = heal_amount
+        if self.__current_hp > self.__hp:
+            healed_amount = self.__current_hp - self.__hp
+            self.__current_hp = self.__hp
+        print(f"Your {self.__name} got healed by {healed_amount}")
 
     def get_defense(self):
         return self.__dev

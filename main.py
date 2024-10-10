@@ -17,6 +17,8 @@ enemy_team = PokemonTeam()
 enemy_team_names = []
 random_pokemon = []
 player_choosing = True
+turn = 0
+hp_pot = 1
 
 print("Build your Team ")
 while player_choosing:
@@ -71,14 +73,13 @@ for line in random_pokemon:
     enemy_team.add_pokemon(random_choice)
     enemy_team_names.append(POKEMON_DATA[line]['name'])
 
-choose_fight = str(input('Do you want an Interface? (y/n) ').lower().split())
+choose_fight = str(input('Do you want an Interface? (y/n) ').lower().strip())
 
 if choose_fight == 'n':
     if len(player_team_names) > 1:
         print('Which Pokémon should be sent in first? ')
         for i, pokemon in enumerate(player_team_names):
             print(f"{i + 1}. {pokemon}")
-
         while True:
             try:
                 team_number = int(input("Enter the number of the Pokémon: ")) - 1
@@ -93,22 +94,36 @@ if choose_fight == 'n':
         player_active_pokemon = player_team[0]
     enemy_active_pokemon = random.choice(enemy_team.get_team())
 
-    battle_instance = Battle(enemy_active_pokemon, player_active_pokemon, enemy_team, player_team)
+    battle_instance = Battle(enemy_active_pokemon, player_active_pokemon, enemy_team, player_team, enemy_team_number)
     battle_instance.start_battle(enemy_active_pokemon, player_active_pokemon)
     fighting = True
 if choose_fight == 'y':
     gui()
 
 while fighting:
-    player_active_pokemon = battle_instance.display_actions(player_active_pokemon, enemy_active_pokemon, player_team)
-    enemy_active_pokemon = battle_instance.check_enemy_fainted(enemy_active_pokemon, enemy_team)
-    if enemy_team.get_team_len() <= 0:
-        print(f'Your team {player_team_names} won the fight!')
-        fighting = False
-        break
-    battle_instance.enemy_turn(player_active_pokemon, enemy_active_pokemon)
-    player_active_pokemon = battle_instance.check_player_fainted(player_active_pokemon, player_team)
-    if player_team.get_team_len() <= 0:
-        print(f'The enemy team {enemy_team_names} won the fight..')
-        fighting = False
-        break
+    if turn % 2 == 1 and turn <= 3:
+        turn += 1
+        player_active_pokemon = battle_instance.display_actions(player_active_pokemon, enemy_active_pokemon, player_team)
+        enemy_active_pokemon = battle_instance.check_enemy_fainted(enemy_active_pokemon, enemy_team)
+        if enemy_team.get_team_len() <= 0:
+            print(f'Your team {player_team_names} won the fight!')
+            fighting = False
+            break
+    elif turn % 2 == 0 and turn != 0 and turn <= 2:
+        turn += 1
+        battle_instance.enemy_turn(player_active_pokemon, enemy_active_pokemon)
+        player_active_pokemon = battle_instance.check_player_fainted(player_active_pokemon, player_team)
+        if player_team.get_team_len() <= 0:
+            print(f'The enemy team {enemy_team_names} won the fight..')
+            fighting = False
+            break
+    elif turn == 0 or turn >= 3:
+        turn = 0
+        player_speed = player_active_pokemon.get_speed()
+        enemy_speed = enemy_active_pokemon.get_speed()
+        if player_speed < enemy_speed:
+            turn += 2
+        elif player_speed > enemy_speed:
+            turn += 1
+        else:
+            turn += random.randint(1, 3)

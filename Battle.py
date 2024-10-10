@@ -1,15 +1,19 @@
 import random
+from math import floor
+
 
 from pokemonlist import POKEMON_ATTACK_VALUES
 from Pokemonteam import PokemonTeam
 
-print('test')
+
 class Battle:
-    def __init__(self, enemy_active_pokemon, player_active_pokemon, enemy_team, player_team):
+
+    def __init__(self, enemy_active_pokemon, player_active_pokemon, enemy_team, player_team, team_number):
         self.enemy_pokemon = enemy_active_pokemon
         self.player_pokemon = player_active_pokemon
         self.enemy_team = enemy_team
         self.player_team = player_team
+        self.hp_pot = floor(1+(team_number/2))
 
     def start_battle(self, enemy_active_pokemon, player_active_pokemon):
         print(f'Enemy Pokemon: {enemy_active_pokemon.get_name()} ')
@@ -67,8 +71,16 @@ class Battle:
     def enemy_turn(self, player_active_pokemon, enemy_active_pokemon):
         self.attack_player(player_active_pokemon, enemy_active_pokemon)
 
-    def bag(self):
-        pass
+    def bag(self, player_active_pokemon):
+        choice = input("What would you like to Choose? \n 1. Health Pot \n 2. TDB \n ")
+        print(f"you got {self.hp_pot} pots left!")
+        if choice == "1":
+            if self.hp_pot > 0:
+                player_active_pokemon.healing(50)
+                self.hp_pot += -1
+                print(self.hp_pot)
+        else:
+            print("Your out of Health Pots!")
 
     def flee(self, player_active_pokemon, enemy_active_pokemon):
         if player_active_pokemon.get_speed() >= enemy_active_pokemon.get_speed():
@@ -89,7 +101,7 @@ class Battle:
         elif selection == '2':
             player_active_pokemon = player_team.switch()
         elif selection == '3':
-            self.bag()
+            self.bag(player_active_pokemon)
         elif selection == '4':
             self.flee(player_active_pokemon, enemy_active_pokemon)
         return player_active_pokemon
