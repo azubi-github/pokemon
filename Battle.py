@@ -26,12 +26,15 @@ class Battle:
             index = player_team.get_team().index(player_active_pokemon)
             player_team.remove_fainted_pokemon(index)
             team_len = team_len - 1
+            skip_turn = True
             if team_len >= 1:
                 player_active_pokemon = player_team.switch()
             else:
                 print('Your team lost..')
                 pass
-        return player_active_pokemon
+        else:
+            skip_turn = False
+        return player_active_pokemon, skip_turn
 
     def check_enemy_fainted(self, enemy_active_pokemon, enemy_team):
         team_len = enemy_team.get_team_len()
@@ -40,6 +43,7 @@ class Battle:
             index = enemy_team.get_team().index(enemy_active_pokemon)
             enemy_team.remove_fainted_pokemon(index)
             team_len = team_len - 1
+            skip_turn = True
             if team_len > 1:
                 enemy_active_pokemon = random.choice(enemy_team.get_team())
                 # PokemonTeam.enemy_switch(enemy_active_pokemon, enemy_team)
@@ -47,7 +51,9 @@ class Battle:
                 enemy_active_pokemon = random.choice(enemy_team.get_team())
             elif team_len <= 0:
                 pass
-        return enemy_active_pokemon
+        else:
+            skip_turn = False
+        return enemy_active_pokemon, skip_turn
 
     def attack_selection(self, player_active_pokemon, enemy_active_pokemon):
         abilities = player_active_pokemon.get_ability_list()

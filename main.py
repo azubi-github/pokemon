@@ -18,7 +18,7 @@ enemy_team_names = []
 random_pokemon = []
 player_choosing = True
 turn = 0
-hp_pot = 1
+skip_turn = False
 
 print("Build your Team ")
 while player_choosing:
@@ -103,16 +103,18 @@ if choose_fight == 'y':
 while fighting:
     if turn % 2 == 1 and turn <= 3:
         turn += 1
-        player_active_pokemon = battle_instance.display_actions(player_active_pokemon, enemy_active_pokemon, player_team)
-        enemy_active_pokemon = battle_instance.check_enemy_fainted(enemy_active_pokemon, enemy_team)
+        if skip_turn != True:
+            player_active_pokemon = battle_instance.display_actions(player_active_pokemon, enemy_active_pokemon, player_team)
+        enemy_active_pokemon, skip_turn = battle_instance.check_enemy_fainted(enemy_active_pokemon, enemy_team)
         if enemy_team.get_team_len() <= 0:
             print(f'Your team {player_team_names} won the fight!')
             fighting = False
             break
     elif turn % 2 == 0 and turn != 0 and turn <= 2:
         turn += 1
-        battle_instance.enemy_turn(player_active_pokemon, enemy_active_pokemon)
-        player_active_pokemon = battle_instance.check_player_fainted(player_active_pokemon, player_team)
+        if skip_turn != True:
+            battle_instance.enemy_turn(player_active_pokemon, enemy_active_pokemon)
+        player_active_pokemon, skip_turn = battle_instance.check_player_fainted(player_active_pokemon, player_team)
         if player_team.get_team_len() <= 0:
             print(f'The enemy team {enemy_team_names} won the fight..')
             fighting = False

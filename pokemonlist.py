@@ -76,7 +76,7 @@ POKEMON_ATTACK = {
              'Treppenstufe': {'Attack_Strength': 60, 'Accuracy': 80, 'element': 'Ground'},
              'Quicksand': {'Attack_Strength': 80, 'Accuracy': 60, 'element': 'Ground'}},
     'Fighting': {'Flex': {'Attack_Strength': 40, 'Accuracy': 100, 'element': 'Fighting'},
-             'Ich_hab_Beine_Trainiert': {'Attack_Strength': 60, 'Accuracy': 80, 'element': 'Fighting'},
+             'Isch_hab_Beine_Trainiert': {'Attack_Strength': 60, 'Accuracy': 80, 'element': 'Fighting'},
              'Flugstunde': {'Attack_Strength': 80, 'Accuracy': 60, 'element': 'Fighting'},
             'Saitama-Punch': {'Attack_Strength': 4000000, 'Accuracy': 100, 'element': 'Fighting'}},
     'Poison': {'5-Sekunden-Regel': {'Attack_Strength': 40, 'Accuracy': 100, 'element': 'Poison'},
