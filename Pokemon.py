@@ -4,13 +4,13 @@ from pokemonlist import POKEMON_ATTACK, ELEMENT_TYPE, POKEMON_ATTACK_VALUES
 
 class Pokemon:
     """Erstellt ein Pokemon mit der übergabe von Name, Element, HP, ATK, DEV und SPD"""
-    def __init__(self, name, element, hp, atk, dev, spd):
+    def __init__(self, name, element, health, attack, defense, speed):
         self.__name = name
         self.__element = str(element)
-        self.__hp = int(hp) + randint(0, 32)
-        self.__atk = int(atk) + randint(0, 32)
-        self.__dev = int(dev) + randint(0, 32)
-        self.__spd = int(spd) + randint(0, 32)
+        self.__hp = int(health) + randint(0, 32)
+        self.__atk = int(attack) + randint(0, 32)
+        self.__dev = int(defense) + randint(0, 32)
+        self.__spd = int(speed) + randint(0, 32)
         self.__current_hp = self.__hp
         self.__ability = self.set_ability_list()
         self.__fainted = False

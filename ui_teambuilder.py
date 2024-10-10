@@ -46,12 +46,7 @@ def team_builder():
             team_builder_screen.blit(text, text_rect)
 
             if text_rect.collidepoint(pygame.mouse.get_pos()) and pygame.mouse.get_pressed()[0]:
-                choice = Pokemon(name=name,
-                                 element=data['element'],
-                                 hp=data['health'],
-                                 dev=data['defense'],
-                                 spd=data['speed'],
-                                 atk=data['attack'])
+                choice = Pokemon(**data)
                 if player_team.get_team_len() < 6:
                     if choice not in player_team.get_team():
                         player_team.add_pokemon(choice)
@@ -69,6 +64,5 @@ def team_builder():
         pygame.display.update()
 
     pygame.quit()
-
 
 team_builder()
