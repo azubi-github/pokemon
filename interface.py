@@ -82,3 +82,4 @@ def gui():
 
     # Quit Pygame
     pygame.quit()
+print('test')

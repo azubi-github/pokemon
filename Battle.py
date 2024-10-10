@@ -3,7 +3,7 @@ import random
 from pokemonlist import POKEMON_ATTACK_VALUES
 from Pokemonteam import PokemonTeam
 
-
+print('test')
 class Battle:
     def __init__(self, enemy_active_pokemon, player_active_pokemon, enemy_team, player_team):
         self.enemy_pokemon = enemy_active_pokemon

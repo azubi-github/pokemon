@@ -45,3 +45,4 @@ class PokemonTeam:
 
     def __getitem__(self, index):
         return self.get_pokemon(index)
+print('test')

@@ -71,8 +71,8 @@ for line in random_pokemon:
     enemy_team.add_pokemon(random_choice)
     enemy_team_names.append(POKEMON_DATA[line]['name'])
 
-choose_fight = input('Do you want an Interface? (y/n) ').lower().split()
-choose_fight = str(choose_fight)
+choose_fight = str(input('Do you want an Interface? (y/n) ').lower().split())
+
 if choose_fight == 'n':
     if len(player_team_names) > 1:
         print('Which Pokémon should be sent in first? ')
