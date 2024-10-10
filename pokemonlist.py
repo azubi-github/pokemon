@@ -30,7 +30,7 @@ POKEMON_DATA = {
     'Ditto': {'name': 'Ditto', 'element': 'Normal', 'health': 155, 'attack': 48, 'defense': 48, 'speed': 48},
     'Tauros': {'name': 'Tauros', 'element': 'Normal', 'health': 190, 'attack': 125, 'defense': 95, 'speed': 100},
     'Pinsir': {'name': 'Pinsir', 'element': 'Bug', 'health': 175, 'attack': 155, 'defense': 85, 'speed': 105},
-    "Kha'Zix": {'name': "Kha'Zix", 'element': 'Bug', 'health': 175, 'attack': 155, 'defense': 85, 'speed': 105},
+    "Khazix": {'name': "Khazix", 'element': 'Bug', 'health': 175, 'attack': 155, 'defense': 85, 'speed': 105},
     'Magmar': {'name': 'Magmar', 'element': 'Fire', 'health': 185, 'attack': 100, 'defense': 85, 'speed': 93},
     'Elektek': {'name': 'Elektek', 'element': 'Electric', 'health': 185, 'attack': 123, 'defense': 60, 'speed': 105},
     'Staryu': {'name': 'Staryu', 'element': 'Water', 'health': 140, 'attack': 70, 'defense': 55, 'speed': 85},

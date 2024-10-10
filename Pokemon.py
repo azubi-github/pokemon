@@ -1,6 +1,6 @@
 from random import randint
 import random
-from pokemonlist import POKEMON_ATTACK, ELEMENT_TYPE
+from pokemonlist import POKEMON_ATTACK, ELEMENT_TYPE, POKEMON_ATTACK_VALUES
 
 
 class Pokemon:
@@ -75,9 +75,10 @@ class Pokemon:
             self.__fainted = True
         return self.__fainted
 
-    def element_abfrage(self, enemy_element):
-        multiplier = ELEMENT_TYPE[self.__element][enemy_element]
-        return multiplier
+    def element_abfrage(self, enemy_element, ability):
+        multip = ELEMENT_TYPE[POKEMON_ATTACK_VALUES[ability]['element']][enemy_element.get_element()]
+        print(multip)
+        return multip
 
     def __repr__(self):
         return (f'{self.__name}, {self.__element}, HP: {self.__hp}, '
