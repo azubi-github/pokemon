@@ -1,8 +1,15 @@
+import interface
 from Pokemon import Pokemon
 from pokemonlist import POKEMON_DATA
 from Pokemonteam import PokemonTeam
 import random
 from Battle import Battle
+from interface import gui
+
+
+def start_gui():
+    gui()
+
 
 player_team = PokemonTeam()
 player_team_names = []
@@ -14,6 +21,7 @@ player_choosing = True
 print("Build your Team ")
 while player_choosing:
     pokemon_name = input("Pokemon name: ").strip().capitalize()
+
     for line in POKEMON_DATA.keys():
         if pokemon_name in POKEMON_DATA:
             if pokemon_name == POKEMON_DATA[line]['name']:
@@ -63,32 +71,44 @@ for line in random_pokemon:
     enemy_team.add_pokemon(random_choice)
     enemy_team_names.append(POKEMON_DATA[line]['name'])
 
-enemy_active_pokemon = random.choice(enemy_team.get_team())
+choose_fight = input('Do you want an Interface? (y/n) ').lower().split()
+choose_fight = str(choose_fight)
+if choose_fight == 'n':
+    if len(player_team_names) > 1:
+        print('Which Pokémon should be sent in first? ')
+        for i, pokemon in enumerate(player_team_names):
+            print(f"{i + 1}. {pokemon}")
 
-if len(player_team_names) > 1:
-    print('Which Pokémon should be sent in? ')
-    for i, pokemon in enumerate(player_team_names):
-        print(f"{i + 1}. {pokemon}")
+        while True:
+            try:
+                team_number = int(input("Enter the number of the Pokémon: ")) - 1
+                if 0 <= team_number < len(player_team_names):
+                    player_active_pokemon = player_team[team_number]
+                    break
+                else:
+                    print('Invalid selection ')
+            except ValueError:
+                print('Please enter a number ')
+    else:
+        player_active_pokemon = player_team[0]
+    enemy_active_pokemon = random.choice(enemy_team.get_team())
 
-    while True:
-        try:
-            team_number = int(input("Enter the number of the Pokémon: ")) - 1
-            if 0 <= team_number < len(player_team_names):
-                player_active_pokemon = player_team[team_number]
-                break
-            else:
-                print('Invalid selection ')
-        except ValueError:
-            print('Please enter a number ')
-else:
-    player_active_pokemon = player_team[0]
-
-battle_instance = Battle(enemy_active_pokemon, player_active_pokemon, enemy_team, player_team)
-battle_instance.start_battle(enemy_active_pokemon, player_active_pokemon)
-fighting = True
+    battle_instance = Battle(enemy_active_pokemon, player_active_pokemon, enemy_team, player_team)
+    battle_instance.start_battle(enemy_active_pokemon, player_active_pokemon)
+    fighting = True
+if choose_fight == 'y':
+    gui()
 
 while fighting:
     player_active_pokemon = battle_instance.display_actions(player_active_pokemon, enemy_active_pokemon, player_team)
     enemy_active_pokemon = battle_instance.check_enemy_fainted(enemy_active_pokemon, enemy_team)
+    if enemy_team.get_team_len() <= 0:
+        print(f'Your team {player_team_names} won the fight!')
+        fighting = False
+        break
     battle_instance.enemy_turn(player_active_pokemon, enemy_active_pokemon)
     player_active_pokemon = battle_instance.check_player_fainted(player_active_pokemon, player_team)
+    if player_team.get_team_len() <= 0:
+        print(f'The enemy team {enemy_team_names} won the fight..')
+        fighting = False
+        break
