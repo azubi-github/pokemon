@@ -2,7 +2,6 @@ from random import randint
 import random
 from pokemonlist import POKEMON_ATTACK, ELEMENT_TYPE, POKEMON_ATTACK_VALUES
 
-print('test')
 class Pokemon:
     """Erstellt ein Pokemon mit der übergabe von Name, Element, HP, ATK, DEV und SPD"""
     def __init__(self, name, element, hp, atk, dev, spd):

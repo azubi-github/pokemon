@@ -3,7 +3,6 @@ from math import floor
 
 
 from pokemonlist import POKEMON_ATTACK_VALUES
-from Pokemonteam import PokemonTeam
 
 
 class Battle:
@@ -42,7 +41,6 @@ class Battle:
             team_len = team_len - 1
             if team_len > 1:
                 enemy_active_pokemon = random.choice(enemy_team.get_team())
-                # PokemonTeam.enemy_switch(enemy_active_pokemon, enemy_team)
             elif team_len == 1:
                 enemy_active_pokemon = random.choice(enemy_team.get_team())
             elif team_len <= 0:

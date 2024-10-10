@@ -2,9 +2,9 @@ import pygame
 from Battle import Battle
 from Pokemon import Pokemon
 from pokemonlist import *
+from ui_teambuilder import team_builder
 
-
-def gui():
+def battle_scene():
     pygame.init()
 
     SCREEN_WIDTH = 800
@@ -82,4 +82,11 @@ def gui():
 
     # Quit Pygame
     pygame.quit()
-print('test')
+
+
+def gui():
+    team_builder()
+    #battle_scene()
+
+
+gui()

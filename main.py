@@ -7,10 +7,6 @@ from Battle import Battle
 from interface import gui
 
 
-def start_gui():
-    gui()
-
-
 player_team = PokemonTeam()
 player_team_names = []
 enemy_team = PokemonTeam()
