@@ -14,7 +14,7 @@ class Pokemon:
         self.__dev = int(defense) + randint(0, 32)
         self.__spd = int(speed) + randint(0, 32)
         self.__current_hp = self.__hp
-        self.__ability, self.__ability_names = self.set_ability_list()
+        self.__ability = self.set_ability_list()
         self.__fainted = False
 
     def get_pokemon(self):
