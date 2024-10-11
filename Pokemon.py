@@ -61,7 +61,12 @@ class Pokemon:
                 ability_list.append(choice)
             else:
                 ability_list.append(choice)
-        ability_list.append(random.choice(list(POKEMON_ATTACK["Normal"])))
+        random_normal_ability = random.choice(list(POKEMON_ATTACK["Normal"]))
+        if random_normal_ability in ability_list:
+            while random_normal_ability in ability_list:
+                random_normal_ability = random.choice(list(POKEMON_ATTACK["Normal"]))
+        else:
+            ability_list.append(random_normal_ability)
         return ability_list
 
     def random_ability(self):

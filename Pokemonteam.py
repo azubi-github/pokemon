@@ -1,3 +1,9 @@
+import random
+
+from Pokemon import Pokemon
+from pokemonlist import POKEMON_DATA
+
+
 class PokemonTeam:
     def __init__(self):
         self._team = []
@@ -40,8 +46,58 @@ class PokemonTeam:
     def get_team_len(self):
         return len(self._team)
 
+    def get_team_name(self):
+        team_name = []
+        for i in self.get_team():
+            team_name.append(i.get_name())
+        return team_name
     def __repr__(self):
         return str(self._team)
 
     def __getitem__(self, index):
         return self.get_pokemon(index)
+
+
+    def player_team_creation(self):
+        player_team_names = []
+        print("Build your Team ")
+        while True:
+            pokemon_name = input("Pokemon name: ").strip().capitalize()
+            for line in POKEMON_DATA.keys():
+                if pokemon_name in POKEMON_DATA:
+                    if pokemon_name == POKEMON_DATA[line]['name']:
+                        if pokemon_name in player_team_names:
+                            print(f"{pokemon_name} is already in your Team ")
+                        else:
+                            choice = Pokemon(**POKEMON_DATA[pokemon_name])
+                            self.add_pokemon(choice)
+                            player_team_names.append(pokemon_name)
+                            print(f'{pokemon_name} {choice.get_ability_list()} added to your Team ')
+                            print(f'Your Team: {player_team_names} ')
+                else:
+                    print('Pokemon isnt avalible ')
+            if self.get_team_len() >= 6:
+                break
+            else:
+                another = input("Another Pokemon? (yes/no) ").lower().strip()
+                if another == "yes":
+                    pass
+                else:
+                    if len(player_team_names) <= 0:
+                        print("Atleast 1 Pokemon needed ")
+                    else:
+                        break
+
+    def random_team_creation(self, team_size):
+        random_pokemon_list = []
+        for x in range(team_size):
+            while True:
+                random_pokemon = random.choice(list(POKEMON_DATA.keys()))
+                if random_pokemon in random_pokemon_list:
+                    pass
+                else:
+                    random_pokemon_list.append(random_pokemon)
+                    break
+        for line in random_pokemon_list:
+            random_choice = Pokemon(**POKEMON_DATA[line])
+            self.add_pokemon(random_choice)

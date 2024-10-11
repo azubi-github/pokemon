@@ -3,6 +3,7 @@ from math import floor
 
 
 from pokemonlist import POKEMON_ATTACK_VALUES
+from universalfunctions import tryVar
 
 
 class Battle:
@@ -37,41 +38,6 @@ class Battle:
         elif selection == '4':
             self.flee(player_active_pokemon, enemy_active_pokemon)
         return player_active_pokemon
-    def check_player_fainted(self, player_active_pokemon, player_team):
-        team_len = player_team.get_team_len()
-        if player_active_pokemon.is_fainted():
-            print(f'Your {player_active_pokemon.get_name()} fainted.. ')
-            index = player_team.get_team().index(player_active_pokemon)
-            player_team.remove_fainted_pokemon(index)
-            team_len = team_len - 1
-            skip_turn = True
-            if team_len >= 1:
-                player_active_pokemon = player_team.switch()
-            else:
-                print('Your team lost..')
-                pass
-        else:
-            skip_turn = False
-        return player_active_pokemon, skip_turn
-
-    def check_enemy_fainted(self, enemy_active_pokemon, enemy_team):
-        team_len = enemy_team.get_team_len()
-        if enemy_active_pokemon.is_fainted():
-            print(f'{enemy_active_pokemon.get_name()} fainted.. ')
-            index = enemy_team.get_team().index(enemy_active_pokemon)
-            enemy_team.remove_fainted_pokemon(index)
-            team_len = team_len - 1
-            skip_turn = True
-            if team_len > 1:
-                enemy_active_pokemon = random.choice(enemy_team.get_team())
-                # PokemonTeam.enemy_switch(enemy_active_pokemon, enemy_team)
-            elif team_len == 1:
-                enemy_active_pokemon = random.choice(enemy_team.get_team())
-            elif team_len <= 0:
-                pass
-        else:
-            skip_turn = False
-        return enemy_active_pokemon, skip_turn
 
     def attack_selection(self, player_active_pokemon, enemy_active_pokemon):
         abilities = player_active_pokemon.get_ability_list()
@@ -201,4 +167,32 @@ class Battle:
                 pass
         return enemy_active_pokemon
 
+    def fight(self, player_active_pokemon, enemy_active_pokemon, player_team, enemy_team, enemy_team_names, player_team_names):
+        turn = 0
+        while True:
+            if turn % 2 == 1 and turn <= 3:
+                turn += 1
+                player_active_pokemon = self.display_actions(player_active_pokemon, enemy_active_pokemon,
+                                                                        player_team)
+                enemy_active_pokemon = self.check_enemy_fainted(enemy_active_pokemon, enemy_team)
+                if enemy_team.get_team_len() <= 0:
+                    print(f'Your team {player_team_names} won the fight!')
+                    break
+            elif turn % 2 == 0 and turn != 0 and turn <= 2:
+                turn += 1
+                self.enemy_turn(player_active_pokemon, enemy_active_pokemon)
+                player_active_pokemon = self.check_player_fainted(player_active_pokemon, player_team)
+                if player_team.get_team_len() <= 0:
+                    print(f'The enemy team {enemy_team_names} won the fight..')
+                    break
+            elif turn == 0 or turn >= 3:
+                turn = 0
+                player_speed = player_active_pokemon.get_speed()
+                enemy_speed = enemy_active_pokemon.get_speed()
+                if player_speed < enemy_speed:
+                    turn += 2
+                elif player_speed > enemy_speed:
+                    turn += 1
+                else:
+                    turn += random.randint(1, 3)
 
