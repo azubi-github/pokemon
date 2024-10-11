@@ -43,7 +43,7 @@ class Battle:
         abilities = player_active_pokemon.get_ability_list()
         print('Choose an Ability: ')
         for i, ability in enumerate(abilities):
-            print(f'{i + 1}. {ability}')
+            print(f'{i + 1}. {ability.get_name()}')
 
         while True:
             try:
@@ -52,7 +52,7 @@ class Battle:
                     print('Invalid selection ')
                 else:
                     ability = player_active_pokemon.get_ability_list()[choice]
-                    print(f'{player_active_pokemon.get_name()} uses {ability}')
+                    print(f'{player_active_pokemon.get_name()} uses {ability.get_name()}')
                     self.attack_enemy(player_active_pokemon, enemy_active_pokemon, ability)
                     break
             except ValueError:
@@ -60,10 +60,10 @@ class Battle:
 
 
     def attack_enemy(self, player_active_pokemon, enemy_active_pokemon, ability):
-        hitroll = player_active_pokemon.hitchance(POKEMON_ATTACK_VALUES[ability]['Accuracy'])
+        hitroll = player_active_pokemon.hitchance(ability.get_accuracy())
         if "hit" == hitroll:
             damage = player_active_pokemon.get_atk() * (
-                    0.01 * (int(POKEMON_ATTACK_VALUES[ability]['Attack_Strength']))) / (
+                    0.01 * ability.get_attack_strength()) / (
                              1 + (enemy_active_pokemon.get_defense() / 200))
             damage = int(max(1, damage))
             enemy_active_pokemon.take_damage(damage)
@@ -75,7 +75,7 @@ class Battle:
             pass
         elif "crit" == hitroll:
             damage = (player_active_pokemon.get_atk() * 1.5) * (
-                    0.01 * (int(POKEMON_ATTACK_VALUES[ability]['Attack_Strength']))) / (
+                    0.01 * ability.get_attack_strength()) / (
                              1 + (enemy_active_pokemon.get_defense() / 200))
             damage = int(max(1, damage))
             enemy_active_pokemon.take_damage(damage)
@@ -127,11 +127,11 @@ class Battle:
 
     def attack_player(self, player_active_pokemon, enemy_active_pokemon):
         ability = enemy_active_pokemon.random_ability()
-        print(f'{enemy_active_pokemon.get_name()} uses {ability}')
-        hitroll = player_active_pokemon.hitchance(POKEMON_ATTACK_VALUES[ability]['Accuracy'])
+        print(f'{enemy_active_pokemon.get_name()} uses {ability.get_name()}')
+        hitroll = player_active_pokemon.hitchance(ability.get_accuracy())
         if "hit" == hitroll:
             damage = enemy_active_pokemon.get_atk() * (
-                    0.01 * (int(POKEMON_ATTACK_VALUES[ability]['Attack_Strength']))) / (
+                    0.01 * ability.get_attack_strength()) / (
                              1 + (player_active_pokemon.get_defense() / 200))
             damage = int(max(1, damage))
             player_active_pokemon.take_damage(damage)
@@ -143,7 +143,7 @@ class Battle:
             pass
         elif "crit" == hitroll:
             damage = (enemy_active_pokemon.get_atk() * 1.5) * (
-                    0.01 * (int(POKEMON_ATTACK_VALUES[ability]['Attack_Strength']))) / (
+                    0.01 * ability.get_attack_strength()) / (
                              1 + (player_active_pokemon.get_defense() / 200))
             damage = int(max(1, damage))
             player_active_pokemon.take_damage(damage)

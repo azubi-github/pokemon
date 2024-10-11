@@ -1,5 +1,7 @@
 from random import randint
 import random
+
+from Ability import Ability
 from pokemonlist import POKEMON_ATTACK, ELEMENT_TYPE, POKEMON_ATTACK_VALUES
 
 class Pokemon:
@@ -39,6 +41,18 @@ class Pokemon:
     def get_current_hp(self):
         return self.__current_hp
 
+    def get_ability_name(self, ability):
+        return ability.get_name()
+
+    def get_ability_attack_strength(self, ability):
+        return ability.get_attack_strength()
+
+    def get_ability_accruacy(self, ability):
+        return ability.get_accuracy()
+
+    def get_ability_element(self, ability):
+        return ability.get_element()
+
     def get_max_hp(self):
         return self.__hp
 
@@ -53,20 +67,24 @@ class Pokemon:
 
     def set_ability_list(self):
         ability_list = []
+        ability_name_list = []
         for x in range(3):
-            choice = random.choice(list(POKEMON_ATTACK[self.__element]))
-            if choice in ability_list:
-                while choice in ability_list:
-                    choice = random.choice(list(POKEMON_ATTACK[self.__element]))
-                ability_list.append(choice)
+            choice = random.choice(list(POKEMON_ATTACK[self.__element].keys()))
+            if choice in ability_name_list:
+                while choice in ability_name_list:
+                    choice = random.choice(list(POKEMON_ATTACK[self.__element].keys()))
+                ability_name_list.append(choice)
             else:
-                ability_list.append(choice)
-        random_normal_ability = random.choice(list(POKEMON_ATTACK["Normal"]))
-        if random_normal_ability in ability_list:
-            while random_normal_ability in ability_list:
-                random_normal_ability = random.choice(list(POKEMON_ATTACK["Normal"]))
+                ability_name_list.append(choice)
+        random_normal_ability = random.choice(list(POKEMON_ATTACK["Normal"].keys()))
+        if random_normal_ability in ability_name_list:
+            while random_normal_ability in ability_name_list:
+                random_normal_ability = random.choice(list(POKEMON_ATTACK["Normal"].keys()))
         else:
-            ability_list.append(random_normal_ability)
+            ability_name_list.append(random_normal_ability)
+        for i in ability_name_list:
+            i = Ability(name=i, **POKEMON_ATTACK_VALUES[i])
+            ability_list.append(i)
         return ability_list
 
     def random_ability(self):
@@ -89,7 +107,7 @@ class Pokemon:
         return self.__fainted
 
     def element_abfrage(self, enemy_element, ability):
-        multip = ELEMENT_TYPE[POKEMON_ATTACK_VALUES[ability]['element']][enemy_element.get_element()]
+        multip = ELEMENT_TYPE[ability.get_element()][enemy_element.get_element()]
         print(multip)
         return multip
 
