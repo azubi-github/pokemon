@@ -72,7 +72,7 @@ class PokemonTeam:
                             choice = Pokemon(**POKEMON_DATA[pokemon_name])
                             self.add_pokemon(choice)
                             player_team_names.append(pokemon_name)
-                            print(f'{pokemon_name} {choice.get_ability_list()} added to your Team ')
+                            print(f'{pokemon_name} {choice.get_ability_name_list()} added to your Team ')
                             print(f'Your Team: {player_team_names} ')
                 else:
                     print('Pokemon isnt avalible ')
