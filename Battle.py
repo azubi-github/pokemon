@@ -1,7 +1,5 @@
 import random
 from math import floor
-
-
 from pokemonlist import POKEMON_ATTACK_VALUES
 from universalfunctions import tryVar
 
@@ -111,7 +109,7 @@ class Battle:
         if player_active_pokemon.is_fainted():
             print(f'Your {player_active_pokemon.get_name()} fainted.. ')
             index = player_team.get_team().index(player_active_pokemon)
-            player_team.remove_fainted_pokemon(index)
+            player_team.remove_pokemon(index)
             team_len = team_len - 1
             if team_len >= 1:
                 player_active_pokemon = player_team.switch()
@@ -157,7 +155,7 @@ class Battle:
         if enemy_active_pokemon.is_fainted():
             print(f'{enemy_active_pokemon.get_name()} fainted.. ')
             index = enemy_team.get_team().index(enemy_active_pokemon)
-            enemy_team.remove_fainted_pokemon(index)
+            enemy_team.remove_pokemon(index)
             team_len = team_len - 1
             if team_len > 1:
                 enemy_active_pokemon = random.choice(enemy_team.get_team())

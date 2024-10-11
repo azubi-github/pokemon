@@ -17,6 +17,9 @@ class Pokemon:
         self.__ability, self.__ability_names = self.set_ability_list()
         self.__fainted = False
 
+    def get_pokemon(self):
+        return (self.__name, self.__element, self.__hp, self.__atk, self.__dev, self.__spd, self.__current_hp,
+                self.__ability, self.__fainted)
 
     def get_speed(self):
         return self.__spd
