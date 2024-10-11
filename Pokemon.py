@@ -4,8 +4,10 @@ import random
 from Ability import Ability
 from pokemonlist import POKEMON_ATTACK, ELEMENT_TYPE, POKEMON_ATTACK_VALUES
 
+
 class Pokemon:
     """Erstellt ein Pokemon mit der übergabe von Name, Element, HP, ATK, DEV und SPD"""
+
     def __init__(self, name, element, health, attack, defense, speed):
         self.__name = name
         self.__element = str(element)
@@ -17,6 +19,9 @@ class Pokemon:
         self.__ability = self.set_ability_list()
         self.__fainted = False
 
+    def get_pokemon(self):
+        return (self.__name, self.__element, self.__hp, self.__atk, self.__dev, self.__spd, self.__current_hp,
+                self.__ability, self.__fainted)
 
     def get_speed(self):
         return self.__spd
