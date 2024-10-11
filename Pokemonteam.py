@@ -15,7 +15,7 @@ class PokemonTeam:
         return self._team
 
     def remove_pokemon(self, index):
-        if 0 <= index <= len(self._team):
+        if index is not None and index <= len(self._team):
             removed_pokemon = self._team.pop(index)
             print(f'{removed_pokemon.get_name()} has been removed from the team.')
         else:
@@ -25,6 +25,12 @@ class PokemonTeam:
         if 0 <= index < len(self._team):
             return self._team[index]
         return None
+
+    def get_team_names(self):
+        team_names = []
+        for pokemon in self.get_team():
+            team_names.append(pokemon.get_name())
+        return team_names
 
     def switch(self):
         print('Which Pokémon should be sent in? ')
@@ -45,12 +51,6 @@ class PokemonTeam:
 
     def get_team_len(self):
         return len(self._team)
-
-    def get_team_name(self):
-        team_name = []
-        for i in self.get_team():
-            team_name.append(i.get_name())
-        return team_name
 
     def player_team_creation(self):
         player_team_names = []
