@@ -2,9 +2,9 @@ import pygame
 from Battle import Battle
 from Pokemon import Pokemon
 from pokemonlist import *
+from ui_teambuilder import team_builder
 
-
-def gui():
+def battle_scene():
     pygame.init()
 
     SCREEN_WIDTH = 800
@@ -32,11 +32,11 @@ def gui():
     bulbasaur_img = pygame.transform.scale(bulbasaur_img, (100, 100))
 
     squirtle = Pokemon(name=POKEMON_DATA['Squirtle']['name'], element=POKEMON_DATA['Squirtle']['element'],
-                       hp=POKEMON_DATA['Squirtle']['health'], dev=POKEMON_DATA['Squirtle']['defense'],
-                       spd=POKEMON_DATA['Squirtle']['speed'], atk=POKEMON_DATA['Squirtle']['attack'])
+                       health=POKEMON_DATA['Squirtle']['health'], defense=POKEMON_DATA['Squirtle']['defense'],
+                       speed=POKEMON_DATA['Squirtle']['speed'], attack=POKEMON_DATA['Squirtle']['attack'])
     charmander = Pokemon(name=POKEMON_DATA['Charmander']['name'], element=POKEMON_DATA['Charmander']['element'],
-                         hp=POKEMON_DATA['Charmander']['health'], dev=POKEMON_DATA['Charmander']['defense'],
-                         spd=POKEMON_DATA['Charmander']['speed'], atk=POKEMON_DATA['Charmander']['attack'])
+                         health=POKEMON_DATA['Charmander']['health'], defense=POKEMON_DATA['Charmander']['defense'],
+                         speed=POKEMON_DATA['Charmander']['speed'], attack=POKEMON_DATA['Charmander']['attack'])
 
     HEALTH_BAR_WIDTH = 100
     HEALTH_BAR_HEIGHT = 10
@@ -82,4 +82,11 @@ def gui():
 
     # Quit Pygame
     pygame.quit()
-print('test')
+
+
+#def gui():
+    #team_builder()
+    #battle_scene()
+
+
+battle_scene()
