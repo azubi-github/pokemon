@@ -14,7 +14,7 @@ class Pokemon:
         self.__dev = int(defense) + randint(0, 32)
         self.__spd = int(speed) + randint(0, 32)
         self.__current_hp = self.__hp
-        self.__ability = self.set_ability_list()
+        self.__ability, self.__ability_names = self.set_ability_list()
         self.__fainted = False
 
     def get_pokemon(self):
@@ -86,8 +86,8 @@ class Pokemon:
         if random_normal_ability in ability_name_list:
             while random_normal_ability in ability_name_list:
                 random_normal_ability = random.choice(list(POKEMON_ATTACK["Normal"].keys()))
-        else:
-            ability_name_list.append(random_normal_ability)
+
+        ability_name_list.append(random_normal_ability)
         for i in ability_name_list:
             i = Ability(name=i, **POKEMON_ATTACK_VALUES[i])
             ability_list.append(i)

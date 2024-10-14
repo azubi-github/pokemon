@@ -19,8 +19,8 @@ else:
 enemy_team_number = player_team.get_team_len()
 enemy_team.random_team_creation(enemy_team_number)
 
-player_team_names = player_team.get_team_name()
-enemy_team_names = enemy_team.get_team_name()
+player_team_names = player_team.get_team_names()
+enemy_team_names = enemy_team.get_team_names()
 
 
 if len(player_team_names) > 1:
